@@ -22,7 +22,7 @@
 
 App::uses('Controller', 'Controller');
 
-/**
+/** 
  * Application Controller
  *
  * Add your application-wide methods in the class below, your controllers

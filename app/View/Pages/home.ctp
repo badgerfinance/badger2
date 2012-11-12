@@ -20,6 +20,55 @@ if (Configure::read('debug') == 0):
 endif;
 App::uses('Debugger', 'Utility');
 ?>
+
+<div id="currencyContainer" class="dataContainer"></div>
+<div id="tagContainer" class="dataContainer"></div>
+<div id="accountContainer" class="dataContainer"></div>
+<div id="transactionContainer" class="dataContainer"></div>
+<div id="recurringTransactionContainer" class="dataContainer"></div>
+
+<script type="text/javascript">
+    Bancha.onModelReady(['Account', 'Currency', 'Tag', 'Transaction', 'RecurringTransaction'], function() {
+        var modelAccount = Bancha.getModel('Account');
+        var modelCurrency = Bancha.getModel('Currency');
+        var modelTag = Bancha.getModel('Tag');
+        var modelTransaction = Bancha.getModel('Transaction');
+        var modelRecurringTransaction = Bancha.getModel('RecurringTransaction');
+        
+        Ext.create('Ext.grid.Panel', {
+            title: 'Currencies',
+            renderTo: 'currencyContainer',
+            scaffold: modelCurrency
+        });
+
+        Ext.create('Ext.grid.Panel', {
+            title: 'Tags',
+            renderTo: 'tagContainer',
+            scaffold: modelTag
+        });
+
+        Ext.create('Ext.grid.Panel', {
+            title: 'Accounts',
+            renderTo: 'accountContainer',
+            scaffold: modelAccount
+        });
+
+        Ext.create('Ext.grid.Panel', {
+            title: 'Transactions',
+            renderTo: 'transactionContainer',
+            scaffold: modelTransaction
+        });
+
+        Ext.create('Ext.grid.Panel', {
+            title: 'Recurring Transactions',
+            renderTo: 'recurringTransactionContainer',
+            scaffold: modelRecurringTransaction
+        });
+    }); 
+</script>
+     
+     
+<!--
 <iframe src="http://cakephp.org/bake-banner" width="830" height="160" style="overflow:hidden; border:none;">
 	<p>For updates and important announcements, visit http://cakefest.org</p>
 </iframe>
@@ -186,3 +235,4 @@ You can also add some CSS styles for your pages at: APP/webroot/css.');
 	<li><a href="http://cakephp.lighthouseapp.com/"><?php echo __d('cake_dev', 'CakePHP Lighthouse'); ?> </a>
 	<ul><li><?php echo __d('cake_dev', 'CakePHP Tickets, Wiki pages, Roadmap'); ?></li></ul></li>
 </ul>
+-->

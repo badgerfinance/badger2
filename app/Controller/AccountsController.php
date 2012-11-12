@@ -68,6 +68,9 @@ class AccountsController extends AppController {
 				$this->Session->setFlash(__('The account could not be saved. Please, try again.'));
 			}
 		}
+		$currencies = $this->Account->Currency->find('list');
+		$tags = $this->Account->Tag->find('list');
+		$this->set(compact('currencies', 'tags'));
 	}
 
 /**
@@ -106,6 +109,9 @@ class AccountsController extends AppController {
 			// Bancha will never do this request, so no return needed here
 			$this->request->data = $this->Account->read(null, $id);
 		}
+		$currencies = $this->Account->Currency->find('list');
+		$tags = $this->Account->Tag->find('list');
+		$this->set(compact('currencies', 'tags'));
 	}
 
 /**

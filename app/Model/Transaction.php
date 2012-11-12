@@ -4,8 +4,13 @@ App::uses('AppModel', 'Model');
  * Transaction Model
  *
  * @property Account $Account
+ * @property RecurringTransaction $RecurringTransaction
+ * @property Recurring $Recurring
+ * @property NsactionsTag $NsactionsTag
+ * @property Tag $Tag
  */
 class Transaction extends AppModel {
+    public $actsAs = array("Bancha.BanchaRemotable");
 
 /**
  * Validation rules
@@ -13,7 +18,7 @@ class Transaction extends AppModel {
  * @var array
  */
 	public $validate = array(
-		'name' => array(
+		'title' => array(
 			'notempty' => array(
 				'rule' => array('notempty'),
 				//'message' => 'Your custom message here',
@@ -49,6 +54,37 @@ class Transaction extends AppModel {
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''
+		),
+                'RecurringTransaction' => array(
+			'className' => 'RecurringTransaction',
+			'foreignKey' => 'recurring_transaction_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
 		)
 	);
+
+/**
+ * hasAndBelongsToMany associations
+ *
+ * @var array
+ */
+	public $hasAndBelongsToMany = array(
+		'Tag' => array(
+			'className' => 'Tag',
+			'joinTable' => 'tags_transactions',
+			'foreignKey' => 'transaction_id',
+			'associationForeignKey' => 'tag_id',
+			'unique' => 'keepExisting',
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
+			'deleteQuery' => '',
+			'insertQuery' => ''
+		)
+	);
+
 }

@@ -3,7 +3,10 @@
 	<fieldset>
 		<legend><?php echo __('Add Account'); ?></legend>
 	<?php
-		echo $this->Form->input('name');
+		echo $this->Form->input('title');
+		echo $this->Form->input('description');
+		echo $this->Form->input('currency_id');
+		echo $this->Form->input('Tag');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit')); ?>
@@ -13,7 +16,15 @@
 	<ul>
 
 		<li><?php echo $this->Html->link(__('List Accounts'), array('action' => 'index')); ?></li>
+		<li><?php echo $this->Html->link(__('List Currencies'), array('controller' => 'currencies', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Currency'), array('controller' => 'currencies', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Account Properties'), array('controller' => 'account_properties', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Account Property'), array('controller' => 'account_properties', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Recurring Transactions'), array('controller' => 'recurring_transactions', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Recurring Transaction'), array('controller' => 'recurring_transactions', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Transactions'), array('controller' => 'transactions', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Transaction'), array('controller' => 'transactions', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Tags'), array('controller' => 'tags', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Tag'), array('controller' => 'tags', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

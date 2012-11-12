@@ -69,7 +69,9 @@ class TransactionsController extends AppController {
 			}
 		}
 		$accounts = $this->Transaction->Account->find('list');
-		$this->set(compact('accounts'));
+		$recurringTransactions = $this->Transaction->RecurringTransaction->find('list');
+		$tags = $this->Transaction->Tag->find('list');
+		$this->set(compact('accounts', 'recurringTransactions', 'tags'));
 	}
 
 /**
@@ -109,7 +111,9 @@ class TransactionsController extends AppController {
 			$this->request->data = $this->Transaction->read(null, $id);
 		}
 		$accounts = $this->Transaction->Account->find('list');
-		$this->set(compact('accounts'));
+		$recurringTransactions = $this->Transaction->RecurringTransaction->find('list');
+		$tags = $this->Transaction->Tag->find('list');
+		$this->set(compact('accounts', 'recurringTransactions', 'tags'));
 	}
 
 /**

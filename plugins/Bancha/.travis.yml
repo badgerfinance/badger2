@@ -1,0 +1,126 @@
+language: php
+
+php:
+  - 5.2
+  - 5.3
+  - 5.4
+
+env:
+  - DB=mysql CAKEPHP_VERION=master
+  - DB=mysql CAKEPHP_VERION=2.2.0
+  #- DB=mysql CAKEPHP_VERION=2.1.5
+  #- DB=mysql CAKEPHP_VERION=2.0.6
+  #- DB=mysql CAKEPHP_VERION=2.0.0
+  - DB=pgsql CAKEPHP_VERION=master
+  - DB=sqlite CAKEPHP_VERION=master
+
+branches:
+  only:
+    - master
+
+before_script:
+  # create the databases
+  - sh -c "if [ '$DB' = 'mysql' ]; then mysql -e 'CREATE DATABASE bancha_test;'; fi"
+  - sh -c "if [ '$DB' = 'pgsql' ]; then psql -c 'CREATE DATABASE bancha_test;' -U postgres; fi"
+  - sh -c "if [ '$DB' = 'pgsql' ]; then psql -c 'CREATE SCHEMA bancha_test;' -U postgres -d bancha_test; fi"
+  
+  # Prepare the Bancha plugin
+  - mkdir .Bancha # create hidden subdirectory (which is not moved by the mv command)
+  - mv ./* .Bancha/ # copy everything (except the hidden directories) into the directory
+  - mv .Bancha Bancha # unhide it for later use
+  
+  # Download cakephp
+  - wget https://github.com/cakephp/cakephp/tarball/$CAKEPHP_VERION -O cake.tar.gz # get cakephp
+  - tar xf cake.tar.gz # extract cakephp
+  - mv cakephp-cakephp-* ./cakephp # move cakephp to its folder
+  - chmod -R 777 ./cakephp/app/tmp # make tmp executable
+  
+  # Setup the TestProject for Bancha
+  - rm -r ./cakephp/app #remove the default app
+  - git clone --recursive https://github.com/Bancha/BanchaTestProject.git cakephp/app # clone Testproject as base
+  
+  # Setup the Bancha plugin
+  - rm -r ./cakephp/app/Plugin/Bancha
+  - mv ./Bancha ./cakephp/app/Plugin/ #move the Bancha Plugin to its destined directory
+  - cd ./cakephp # move into the directory for execution
+  
+  # Used in the cake core tests, activate if a webserver is needed
+  # - echo "var net = require('net');
+  #  var server = net.createServer();
+  #  server.listen(80, 'localhost');
+  #  console.log('TCP server listening on port 80 at localhost.');" > app/tmp/socket.js
+  #- sudo node ./app/tmp/socket.js &
+  
+  # Setup the database config
+  - touch app/Config/database.php
+  - set +H # needed for pasting the following config file
+  - echo "<?php
+    class DATABASE_CONFIG {
+    private \$identities = array(
+      'mysql' => array(
+        'datasource' => 'Database/Mysql',
+        'host' => '0.0.0.0',
+        'login' => 'travis'
+      ),
+      'pgsql' => array(
+        'datasource' => 'Database/Postgres',
+        'host' => '127.0.0.1',
+        'login' => 'postgres',
+        'database' => 'bancha_test',
+        'schema' => array(
+          'default' => 'public',
+          'test' => 'public',
+        )
+      ),
+      'sqlite' => array(
+        'datasource' => 'Database/Sqlite',
+        'database' => array(
+          'default' => ':memory:',
+          'test' => ':memory:',
+        ),
+      )
+    );
+    public \$default = array(
+      'persistent' => false,
+      'host' => '',
+      'login' => '',
+      'password' => '',
+      'database' => 'bancha_test',
+      'prefix' => ''
+    );
+    public \$test = array(
+      'persistent' => false,
+      'host' => '',
+      'login' => '',
+      'password' => '',
+      'database' => 'bancha_test',
+      'prefix' => ''
+    );
+    public function __construct() {
+      \$db = 'mysql';
+      if (!empty(\$_SERVER['DB'])) {
+        \$db = \$_SERVER['DB'];
+      }
+      foreach (array('default', 'test') as \$source) {
+        \$config = array_merge(\$this->{\$source}, \$this->identities[\$db]);
+        if (is_array(\$config['database'])) {
+          \$config['database'] = \$config['database'][\$source];
+        }
+        if (!empty(\$config['schema']) && is_array(\$config['schema'])) {
+          \$config['schema'] = \$config['schema'][\$source];
+        }
+        \$this->{\$source} = \$config;
+      }
+    }
+    }" > app/Config/database.php #create database config file for cakephp
+
+
+
+script:
+  - chmod a+x ./lib/Cake/Console/cake # make sure to execute it
+  - ./lib/Cake/Console/cake test Bancha AllTests --stderr # execute all Tests
+
+notifications:
+  email:
+    recipients:
+      - mail@banchaproject.org

@@ -1,0 +1,24 @@
+/* 
+    Document   : badger2
+    Created on : 12.11.2012, 16:33:14
+    Author     : 
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+.icon-add { background-image:url(/img/icons/add.png) ! important; }
+.icon-save { background-image:url(/img/icons/disk.png) ! important; }
+.icon-reset { background-image:url(/img/icons/arrow_undo.png) ! important; }
+.icon-upload { background-image:url(/img/icons/image_add.png) ! important; }
+.icon-edit-user { background-image:url(/img/icons/user_edit.png) ! important; }
+
+.dataContainer {
+    width: 80%;
+    min-width: 666px;
+    
+    height: 42ex;
+}
+
+.cake-sql-log {
+	max-height: 20%;
+}
