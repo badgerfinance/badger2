@@ -21,6 +21,21 @@
 			<?php echo $this->Html->link($account['Currency']['long_name'], array('controller' => 'currencies', 'action' => 'view', $account['Currency']['id'])); ?>
 			&nbsp;
 		</dd>
+		<dt><?php echo __('Lower Limit'); ?></dt>
+		<dd>
+			<?php echo h($account['Account']['lower_limit']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Upper Limit'); ?></dt>
+		<dd>
+			<?php echo h($account['Account']['upper_limit']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Parser'); ?></dt>
+		<dd>
+			<?php echo h($account['Account']['parser']); ?>
+			&nbsp;
+		</dd>
 	</dl>
 </div>
 <div class="actions">
@@ -91,6 +106,7 @@
 		<th><?php echo __('End Date'); ?></th>
 		<th><?php echo __('Repeat Unit'); ?></th>
 		<th><?php echo __('Repeat Interval'); ?></th>
+		<th><?php echo __('Transaction Partner'); ?></th>
 		<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php
@@ -106,6 +122,7 @@
 			<td><?php echo $recurringTransaction['end_date']; ?></td>
 			<td><?php echo $recurringTransaction['repeat_unit']; ?></td>
 			<td><?php echo $recurringTransaction['repeat_interval']; ?></td>
+			<td><?php echo $recurringTransaction['transaction_partner']; ?></td>
 			<td class="actions">
 				<?php echo $this->Html->link(__('View'), array('controller' => 'recurring_transactions', 'action' => 'view', $recurringTransaction['id'])); ?>
 				<?php echo $this->Html->link(__('Edit'), array('controller' => 'recurring_transactions', 'action' => 'edit', $recurringTransaction['id'])); ?>
@@ -134,6 +151,10 @@
 		<th><?php echo __('Valuta Date'); ?></th>
 		<th><?php echo __('Amount'); ?></th>
 		<th><?php echo __('Recurring Transaction Id'); ?></th>
+		<th><?php echo __('Transaction Partner'); ?></th>
+		<th><?php echo __('Transferal Source Id'); ?></th>
+		<th><?php echo __('Transferal Target Id'); ?></th>
+		<th><?php echo __('Parser Text'); ?></th>
 		<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php
@@ -147,6 +168,10 @@
 			<td><?php echo $transaction['valuta_date']; ?></td>
 			<td><?php echo $transaction['amount']; ?></td>
 			<td><?php echo $transaction['recurring_transaction_id']; ?></td>
+			<td><?php echo $transaction['transaction_partner']; ?></td>
+			<td><?php echo $transaction['transferal_source_id']; ?></td>
+			<td><?php echo $transaction['transferal_target_id']; ?></td>
+			<td><?php echo $transaction['parser_text']; ?></td>
 			<td class="actions">
 				<?php echo $this->Html->link(__('View'), array('controller' => 'transactions', 'action' => 'view', $transaction['id'])); ?>
 				<?php echo $this->Html->link(__('Edit'), array('controller' => 'transactions', 'action' => 'edit', $transaction['id'])); ?>
@@ -170,6 +195,9 @@
 	<tr>
 		<th><?php echo __('Id'); ?></th>
 		<th><?php echo __('Title'); ?></th>
+		<th><?php echo __('Description'); ?></th>
+		<th><?php echo __('Keyword'); ?></th>
+		<th><?php echo __('Expense'); ?></th>
 		<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php
@@ -178,6 +206,9 @@
 		<tr>
 			<td><?php echo $tag['id']; ?></td>
 			<td><?php echo $tag['title']; ?></td>
+			<td><?php echo $tag['description']; ?></td>
+			<td><?php echo $tag['keyword']; ?></td>
+			<td><?php echo $tag['expense']; ?></td>
 			<td class="actions">
 				<?php echo $this->Html->link(__('View'), array('controller' => 'tags', 'action' => 'view', $tag['id'])); ?>
 				<?php echo $this->Html->link(__('Edit'), array('controller' => 'tags', 'action' => 'edit', $tag['id'])); ?>

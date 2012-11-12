@@ -38,6 +38,9 @@
 		<th><?php echo __('Title'); ?></th>
 		<th><?php echo __('Description'); ?></th>
 		<th><?php echo __('Currency Id'); ?></th>
+		<th><?php echo __('Lower Limit'); ?></th>
+		<th><?php echo __('Upper Limit'); ?></th>
+		<th><?php echo __('Parser'); ?></th>
 		<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php
@@ -48,6 +51,9 @@
 			<td><?php echo $account['title']; ?></td>
 			<td><?php echo $account['description']; ?></td>
 			<td><?php echo $account['currency_id']; ?></td>
+			<td><?php echo $account['lower_limit']; ?></td>
+			<td><?php echo $account['upper_limit']; ?></td>
+			<td><?php echo $account['parser']; ?></td>
 			<td class="actions">
 				<?php echo $this->Html->link(__('View'), array('controller' => 'accounts', 'action' => 'view', $account['id'])); ?>
 				<?php echo $this->Html->link(__('Edit'), array('controller' => 'accounts', 'action' => 'edit', $account['id'])); ?>

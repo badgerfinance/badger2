@@ -4,6 +4,9 @@
 	<tr>
 			<th><?php echo $this->Paginator->sort('id'); ?></th>
 			<th><?php echo $this->Paginator->sort('title'); ?></th>
+			<th><?php echo $this->Paginator->sort('description'); ?></th>
+			<th><?php echo $this->Paginator->sort('keyword'); ?></th>
+			<th><?php echo $this->Paginator->sort('expense'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php
@@ -11,6 +14,9 @@
 	<tr>
 		<td><?php echo h($tag['Tag']['id']); ?>&nbsp;</td>
 		<td><?php echo h($tag['Tag']['title']); ?>&nbsp;</td>
+		<td><?php echo h($tag['Tag']['description']); ?>&nbsp;</td>
+		<td><?php echo h($tag['Tag']['keyword']); ?>&nbsp;</td>
+		<td><?php echo h($tag['Tag']['expense']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $tag['Tag']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $tag['Tag']['id'])); ?>
@@ -44,5 +50,7 @@
 		<li><?php echo $this->Html->link(__('New Recurring Transaction'), array('controller' => 'recurring_transactions', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Transactions'), array('controller' => 'transactions', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Transaction'), array('controller' => 'transactions', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Tags'), array('controller' => 'tags', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Parent'), array('controller' => 'tags', 'action' => 'add')); ?> </li>
 	</ul>
 </div>

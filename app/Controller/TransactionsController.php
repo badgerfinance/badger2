@@ -70,8 +70,10 @@ class TransactionsController extends AppController {
 		}
 		$accounts = $this->Transaction->Account->find('list');
 		$recurringTransactions = $this->Transaction->RecurringTransaction->find('list');
+		$transferalSources = $this->Transaction->TransferalSource->find('list');
+		$transferalTargets = $this->Transaction->TransferalTarget->find('list');
 		$tags = $this->Transaction->Tag->find('list');
-		$this->set(compact('accounts', 'recurringTransactions', 'tags'));
+		$this->set(compact('accounts', 'recurringTransactions', 'transferalSources', 'transferalTargets', 'tags'));
 	}
 
 /**
@@ -112,8 +114,10 @@ class TransactionsController extends AppController {
 		}
 		$accounts = $this->Transaction->Account->find('list');
 		$recurringTransactions = $this->Transaction->RecurringTransaction->find('list');
+		$transferalSources = $this->Transaction->TransferalSource->find('list');
+		$transferalTargets = $this->Transaction->TransferalTarget->find('list');
 		$tags = $this->Transaction->Tag->find('list');
-		$this->set(compact('accounts', 'recurringTransactions', 'tags'));
+		$this->set(compact('accounts', 'recurringTransactions', 'transferalSources', 'transferalTargets', 'tags'));
 	}
 
 /**

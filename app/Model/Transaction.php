@@ -55,9 +55,23 @@ class Transaction extends AppModel {
 			'fields' => '',
 			'order' => ''
 		),
-                'RecurringTransaction' => array(
+		'RecurringTransaction' => array(
 			'className' => 'RecurringTransaction',
 			'foreignKey' => 'recurring_transaction_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'TransferalSource' => array(
+			'className' => 'Transaction',
+			'foreignKey' => 'transferal_target_id',
+			'conditions' => '',
+			'fields' => '',
+			'order' => ''
+		),
+		'TransferalTarget' => array(
+			'className' => 'Transaction',
+			'foreignKey' => 'transferal_source_id',
 			'conditions' => '',
 			'fields' => '',
 			'order' => ''

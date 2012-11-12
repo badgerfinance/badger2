@@ -8,7 +8,7 @@ App::uses('AppModel', 'Model');
  * @property Transaction $Transaction
  */
 class Tag extends AppModel {
-    public $actsAs = array("Bancha.BanchaRemotable");
+    public $actsAs = array('Bancha.BanchaRemotable');
 
 /**
  * Validation rules
@@ -71,6 +71,36 @@ class Tag extends AppModel {
 			'joinTable' => 'tags_transactions',
 			'foreignKey' => 'tag_id',
 			'associationForeignKey' => 'transaction_id',
+			'unique' => 'keepExisting',
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
+			'deleteQuery' => '',
+			'insertQuery' => ''
+		),
+		'Parent' => array(
+			'className' => 'Tag',
+			'joinTable' => 'child_tags_parent_tags',
+			'foreignKey' => 'child_tag_id',
+			'associationForeignKey' => 'parent_tag_id',
+			'unique' => 'keepExisting',
+			'conditions' => '',
+			'fields' => '',
+			'order' => '',
+			'limit' => '',
+			'offset' => '',
+			'finderQuery' => '',
+			'deleteQuery' => '',
+			'insertQuery' => ''
+		),
+		'Child' => array(
+			'className' => 'Tag',
+			'joinTable' => 'child_tags_parent_tags',
+			'foreignKey' => 'parent_tag_id',
+			'associationForeignKey' => 'child_tag_id',
 			'unique' => 'keepExisting',
 			'conditions' => '',
 			'fields' => '',

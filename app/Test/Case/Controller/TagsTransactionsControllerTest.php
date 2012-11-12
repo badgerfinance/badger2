@@ -21,7 +21,8 @@ class TagsTransactionsControllerTest extends ControllerTestCase {
 		'app.recurring_transaction',
 		'app.transaction',
 		'app.recurring_transactions_tag',
-		'app.accounts_tag'
+		'app.accounts_tag',
+		'app.child_tags_parent_tag'
 	);
 
 /**

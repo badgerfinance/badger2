@@ -12,6 +12,7 @@
 		echo $this->Form->input('end_date');
 		echo $this->Form->input('repeat_unit');
 		echo $this->Form->input('repeat_interval');
+		echo $this->Form->input('transaction_partner');
 		echo $this->Form->input('Tag');
 	?>
 	</fieldset>

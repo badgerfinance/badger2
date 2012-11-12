@@ -36,6 +36,26 @@
 			<?php echo $this->Html->link($transaction['RecurringTransaction']['title'], array('controller' => 'recurring_transactions', 'action' => 'view', $transaction['RecurringTransaction']['id'])); ?>
 			&nbsp;
 		</dd>
+		<dt><?php echo __('Transaction Partner'); ?></dt>
+		<dd>
+			<?php echo h($transaction['Transaction']['transaction_partner']); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Transferal Target'); ?></dt>
+		<dd>
+			<?php echo $this->Html->link($transaction['TransferalTarget']['title'], array('controller' => 'transactions', 'action' => 'view', $transaction['TransferalTarget']['id'])); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Transferal Source'); ?></dt>
+		<dd>
+			<?php echo $this->Html->link($transaction['TransferalSource']['title'], array('controller' => 'transactions', 'action' => 'view', $transaction['TransferalSource']['id'])); ?>
+			&nbsp;
+		</dd>
+		<dt><?php echo __('Parser Text'); ?></dt>
+		<dd>
+			<?php echo h($transaction['Transaction']['parser_text']); ?>
+			&nbsp;
+		</dd>
 	</dl>
 </div>
 <div class="actions">
@@ -49,6 +69,8 @@
 		<li><?php echo $this->Html->link(__('New Account'), array('controller' => 'accounts', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Recurring Transactions'), array('controller' => 'recurring_transactions', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Recurring Transaction'), array('controller' => 'recurring_transactions', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Transactions'), array('controller' => 'transactions', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Transferal Source'), array('controller' => 'transactions', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Tags'), array('controller' => 'tags', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Tag'), array('controller' => 'tags', 'action' => 'add')); ?> </li>
 	</ul>
@@ -60,6 +82,9 @@
 	<tr>
 		<th><?php echo __('Id'); ?></th>
 		<th><?php echo __('Title'); ?></th>
+		<th><?php echo __('Description'); ?></th>
+		<th><?php echo __('Keyword'); ?></th>
+		<th><?php echo __('Expense'); ?></th>
 		<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php
@@ -68,6 +93,9 @@
 		<tr>
 			<td><?php echo $tag['id']; ?></td>
 			<td><?php echo $tag['title']; ?></td>
+			<td><?php echo $tag['description']; ?></td>
+			<td><?php echo $tag['keyword']; ?></td>
+			<td><?php echo $tag['expense']; ?></td>
 			<td class="actions">
 				<?php echo $this->Html->link(__('View'), array('controller' => 'tags', 'action' => 'view', $tag['id'])); ?>
 				<?php echo $this->Html->link(__('Edit'), array('controller' => 'tags', 'action' => 'edit', $tag['id'])); ?>

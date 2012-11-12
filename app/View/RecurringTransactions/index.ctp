@@ -11,6 +11,7 @@
 			<th><?php echo $this->Paginator->sort('end_date'); ?></th>
 			<th><?php echo $this->Paginator->sort('repeat_unit'); ?></th>
 			<th><?php echo $this->Paginator->sort('repeat_interval'); ?></th>
+			<th><?php echo $this->Paginator->sort('transaction_partner'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php
@@ -27,6 +28,7 @@
 		<td><?php echo h($recurringTransaction['RecurringTransaction']['end_date']); ?>&nbsp;</td>
 		<td><?php echo h($recurringTransaction['RecurringTransaction']['repeat_unit']); ?>&nbsp;</td>
 		<td><?php echo h($recurringTransaction['RecurringTransaction']['repeat_interval']); ?>&nbsp;</td>
+		<td><?php echo h($recurringTransaction['RecurringTransaction']['transaction_partner']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $recurringTransaction['RecurringTransaction']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $recurringTransaction['RecurringTransaction']['id'])); ?>

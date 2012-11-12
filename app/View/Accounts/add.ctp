@@ -6,6 +6,9 @@
 		echo $this->Form->input('title');
 		echo $this->Form->input('description');
 		echo $this->Form->input('currency_id');
+		echo $this->Form->input('lower_limit');
+		echo $this->Form->input('upper_limit');
+		echo $this->Form->input('parser');
 		echo $this->Form->input('Tag');
 	?>
 	</fieldset>

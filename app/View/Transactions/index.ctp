@@ -9,6 +9,10 @@
 			<th><?php echo $this->Paginator->sort('valuta_date'); ?></th>
 			<th><?php echo $this->Paginator->sort('amount'); ?></th>
 			<th><?php echo $this->Paginator->sort('recurring_transaction_id'); ?></th>
+			<th><?php echo $this->Paginator->sort('transaction_partner'); ?></th>
+			<th><?php echo $this->Paginator->sort('transferal_source_id'); ?></th>
+			<th><?php echo $this->Paginator->sort('transferal_target_id'); ?></th>
+			<th><?php echo $this->Paginator->sort('parser_text'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php
@@ -25,6 +29,14 @@
 		<td>
 			<?php echo $this->Html->link($transaction['RecurringTransaction']['title'], array('controller' => 'recurring_transactions', 'action' => 'view', $transaction['RecurringTransaction']['id'])); ?>
 		</td>
+		<td><?php echo h($transaction['Transaction']['transaction_partner']); ?>&nbsp;</td>
+		<td>
+			<?php echo $this->Html->link($transaction['TransferalTarget']['title'], array('controller' => 'transactions', 'action' => 'view', $transaction['TransferalTarget']['id'])); ?>
+		</td>
+		<td>
+			<?php echo $this->Html->link($transaction['TransferalSource']['title'], array('controller' => 'transactions', 'action' => 'view', $transaction['TransferalSource']['id'])); ?>
+		</td>
+		<td><?php echo h($transaction['Transaction']['parser_text']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $transaction['Transaction']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $transaction['Transaction']['id'])); ?>
@@ -56,6 +68,8 @@
 		<li><?php echo $this->Html->link(__('New Account'), array('controller' => 'accounts', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Recurring Transactions'), array('controller' => 'recurring_transactions', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Recurring Transaction'), array('controller' => 'recurring_transactions', 'action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Transactions'), array('controller' => 'transactions', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Transferal Source'), array('controller' => 'transactions', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Tags'), array('controller' => 'tags', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Tag'), array('controller' => 'tags', 'action' => 'add')); ?> </li>
 	</ul>

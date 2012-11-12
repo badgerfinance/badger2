@@ -6,6 +6,9 @@
 			<th><?php echo $this->Paginator->sort('title'); ?></th>
 			<th><?php echo $this->Paginator->sort('description'); ?></th>
 			<th><?php echo $this->Paginator->sort('currency_id'); ?></th>
+			<th><?php echo $this->Paginator->sort('lower_limit'); ?></th>
+			<th><?php echo $this->Paginator->sort('upper_limit'); ?></th>
+			<th><?php echo $this->Paginator->sort('parser'); ?></th>
 			<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php
@@ -17,6 +20,9 @@
 		<td>
 			<?php echo $this->Html->link($account['Currency']['long_name'], array('controller' => 'currencies', 'action' => 'view', $account['Currency']['id'])); ?>
 		</td>
+		<td><?php echo h($account['Account']['lower_limit']); ?>&nbsp;</td>
+		<td><?php echo h($account['Account']['upper_limit']); ?>&nbsp;</td>
+		<td><?php echo h($account['Account']['parser']); ?>&nbsp;</td>
 		<td class="actions">
 			<?php echo $this->Html->link(__('View'), array('action' => 'view', $account['Account']['id'])); ?>
 			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $account['Account']['id'])); ?>

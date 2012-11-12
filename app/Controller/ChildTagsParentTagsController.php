@@ -1,11 +1,11 @@
 <?php
 App::uses('AppController', 'Controller');
 /**
- * Tags Controller
+ * ChildTagsParentTags Controller
  *
- * @property Tag $Tag
+ * @property ChildTagsParentTag $ChildTagsParentTag
  */
-class TagsController extends AppController {
+class ChildTagsParentTagsController extends AppController {
 
 /**
  * index method
@@ -13,13 +13,13 @@ class TagsController extends AppController {
  * @return void
  */
 	public function index() {
-		$this->Tag->recursive = 0;
-		$tags = $this->paginate();
-		$this->set('tags', $tags);
+		$this->ChildTagsParentTag->recursive = 0;
+		$childTagsParentTags = $this->paginate();
+		$this->set('childTagsParentTags', $childTagsParentTags);
 
 		// provide a return value for Bancha requests
-		return array_merge($this->request['paging']['Tag'],
-			array('records'=>$tags));
+		return array_merge($this->request['paging']['ChildTagsParentTag'],
+			array('records'=>$childTagsParentTags));
 	}
 
 /**
@@ -29,14 +29,14 @@ class TagsController extends AppController {
  * @return void
  */
 	public function view($id = null) {
-		$this->Tag->id = $id;
-		if (!$this->Tag->exists()) {
-			throw new NotFoundException(__('Invalid tag'));
+		$this->ChildTagsParentTag->id = $id;
+		if (!$this->ChildTagsParentTag->exists()) {
+			throw new NotFoundException(__('Invalid child tags parent tag'));
 		}
-		$this->set('tag', $this->Tag->read(null, $id));
+		$this->set('childTagsParentTag', $this->ChildTagsParentTag->read(null, $id));
 
 		// provide a return value for Bancha requests
-		return $this->Tag->data;
+		return $this->ChildTagsParentTag->data;
 	}
 
 /**
@@ -46,34 +46,28 @@ class TagsController extends AppController {
  */
 	public function add() {
 		if ($this->request->is('post')) {
-			$this->Tag->create();
-			if ($this->Tag->save($this->request->data)) {
+			$this->ChildTagsParentTag->create();
+			if ($this->ChildTagsParentTag->save($this->request->data)) {
 
 				// provide a return value for Bancha requests
 				// never use SessionComponent::setFlash() or Controller::redirect() in Bancha requests
 				if(isset($this->request->params['isBancha']) && $this->request->params['isBancha']) {
-					return $this->Tag->getLastSaveResult();
+					return $this->ChildTagsParentTag->getLastSaveResult();
 				}
 
-				$this->Session->setFlash(__('The tag has been saved'));
+				$this->Session->setFlash(__('The child tags parent tag has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
 
 				// provide a return value for Bancha requests
 				// never use SessionComponent::setFlash() in Bancha requests
 				if(isset($this->request->params['isBancha']) && $this->request->params['isBancha']) {
-					return $this->Tag->getLastSaveResult();
+					return $this->ChildTagsParentTag->getLastSaveResult();
 				}
 
-				$this->Session->setFlash(__('The tag could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('The child tags parent tag could not be saved. Please, try again.'));
 			}
 		}
-		$accounts = $this->Tag->Account->find('list');
-		$recurringTransactions = $this->Tag->RecurringTransaction->find('list');
-		$transactions = $this->Tag->Transaction->find('list');
-		$parents = $this->Tag->Parent->find('list');
-		$children = $this->Tag->Child->find('list');
-		$this->set(compact('accounts', 'recurringTransactions', 'transactions', 'parents', 'children'));
 	}
 
 /**
@@ -83,41 +77,35 @@ class TagsController extends AppController {
  * @return void
  */
 	public function edit($id = null) {
-		$this->Tag->id = $id;
-		if (!$this->Tag->exists()) {
-			throw new NotFoundException(__('Invalid tag'));
+		$this->ChildTagsParentTag->id = $id;
+		if (!$this->ChildTagsParentTag->exists()) {
+			throw new NotFoundException(__('Invalid child tags parent tag'));
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
-			if ($this->Tag->save($this->request->data)) {
+			if ($this->ChildTagsParentTag->save($this->request->data)) {
 
 				// provide a return value for Bancha requests
 				// never use SessionComponent::setFlash() or Controller::redirect() in Bancha requests
 				if(isset($this->request->params['isBancha']) && $this->request->params['isBancha']) {
-					return $this->Tag->getLastSaveResult();
+					return $this->ChildTagsParentTag->getLastSaveResult();
 				}
 
-				$this->Session->setFlash(__('The tag has been saved'));
+				$this->Session->setFlash(__('The child tags parent tag has been saved'));
 				$this->redirect(array('action' => 'index'));
 			} else {
 
 				// provide a return value for Bancha requests
 				// never use SessionComponent::setFlash() in Bancha requests
 				if(isset($this->request->params['isBancha']) && $this->request->params['isBancha']) {
-					return $this->Tag->getLastSaveResult();
+					return $this->ChildTagsParentTag->getLastSaveResult();
 				}
 
-				$this->Session->setFlash(__('The tag could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('The child tags parent tag could not be saved. Please, try again.'));
 			}
 		} else {
 			// Bancha will never do this request, so no return needed here
-			$this->request->data = $this->Tag->read(null, $id);
+			$this->request->data = $this->ChildTagsParentTag->read(null, $id);
 		}
-		$accounts = $this->Tag->Account->find('list');
-		$recurringTransactions = $this->Tag->RecurringTransaction->find('list');
-		$transactions = $this->Tag->Transaction->find('list');
-		$parents = $this->Tag->Parent->find('list', array('conditions' => array('Parent.id !=' => $this->Tag->id)));
-		$children = $this->Tag->Child->find('list', array('conditions' => array('Child.id !=' => $this->Tag->id)));
-		$this->set(compact('accounts', 'recurringTransactions', 'transactions', 'parents', 'children'));
 	}
 
 /**
@@ -130,29 +118,29 @@ class TagsController extends AppController {
 		if (!$this->request->is('post')) {
 			throw new MethodNotAllowedException();
 		}
-		$this->Tag->id = $id;
-		if (!$this->Tag->exists()) {
-			throw new NotFoundException(__('Invalid tag'));
+		$this->ChildTagsParentTag->id = $id;
+		if (!$this->ChildTagsParentTag->exists()) {
+			throw new NotFoundException(__('Invalid child tags parent tag'));
 		}
-		if ($this->Tag->delete()) {
+		if ($this->ChildTagsParentTag->delete()) {
 
 			// provide a return value for Bancha requests
 			// never use SessionComponent::setFlash() or Controller::redirect() in Bancha requests
 			if(isset($this->request->params['isBancha']) && $this->request->params['isBancha']) {
-				return $this->Tag->getLastSaveResult();
+				return $this->ChildTagsParentTag->getLastSaveResult();
 			}
 
-			$this->Session->setFlash(__('Tag deleted'));
+			$this->Session->setFlash(__('Child tags parent tag deleted'));
 			$this->redirect(array('action' => 'index'));
 		}
 
 		// provide a return value for Bancha requests
 		// never use SessionComponent::setFlash() or Controller::redirect() in Bancha requests
 		if(isset($this->request->params['isBancha']) && $this->request->params['isBancha']) {
-			return $this->Tag->getLastSaveResult();
+			return $this->ChildTagsParentTag->getLastSaveResult();
 		}
 
-		$this->Session->setFlash(__('Tag was not deleted'));
+		$this->Session->setFlash(__('Child tags parent tag was not deleted'));
 		$this->redirect(array('action' => 'index'));
 	}
 }

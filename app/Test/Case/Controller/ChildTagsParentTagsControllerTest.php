@@ -1,11 +1,11 @@
 <?php
-App::uses('TagsController', 'Controller');
+App::uses('ChildTagsParentTagsController', 'Controller');
 
 /**
- * TagsController Test Case
+ * ChildTagsParentTagsController Test Case
  *
  */
-class TagsControllerTest extends ControllerTestCase {
+class ChildTagsParentTagsControllerTest extends ControllerTestCase {
 
 /**
  * Fixtures
@@ -13,6 +13,7 @@ class TagsControllerTest extends ControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
+		'app.child_tags_parent_tag',
 		'app.tag',
 		'app.account',
 		'app.currency',
@@ -21,8 +22,7 @@ class TagsControllerTest extends ControllerTestCase {
 		'app.transaction',
 		'app.tags_transaction',
 		'app.recurring_transactions_tag',
-		'app.accounts_tag',
-		'app.child_tags_parent_tag'
+		'app.accounts_tag'
 	);
 
 /**

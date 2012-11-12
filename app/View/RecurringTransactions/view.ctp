@@ -46,6 +46,11 @@
 			<?php echo h($recurringTransaction['RecurringTransaction']['repeat_interval']); ?>
 			&nbsp;
 		</dd>
+		<dt><?php echo __('Transaction Partner'); ?></dt>
+		<dd>
+			<?php echo h($recurringTransaction['RecurringTransaction']['transaction_partner']); ?>
+			&nbsp;
+		</dd>
 	</dl>
 </div>
 <div class="actions">
@@ -75,6 +80,10 @@
 		<th><?php echo __('Valuta Date'); ?></th>
 		<th><?php echo __('Amount'); ?></th>
 		<th><?php echo __('Recurring Transaction Id'); ?></th>
+		<th><?php echo __('Transaction Partner'); ?></th>
+		<th><?php echo __('Transferal Source Id'); ?></th>
+		<th><?php echo __('Transferal Target Id'); ?></th>
+		<th><?php echo __('Parser Text'); ?></th>
 		<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php
@@ -88,6 +97,10 @@
 			<td><?php echo $transaction['valuta_date']; ?></td>
 			<td><?php echo $transaction['amount']; ?></td>
 			<td><?php echo $transaction['recurring_transaction_id']; ?></td>
+			<td><?php echo $transaction['transaction_partner']; ?></td>
+			<td><?php echo $transaction['transferal_source_id']; ?></td>
+			<td><?php echo $transaction['transferal_target_id']; ?></td>
+			<td><?php echo $transaction['parser_text']; ?></td>
 			<td class="actions">
 				<?php echo $this->Html->link(__('View'), array('controller' => 'transactions', 'action' => 'view', $transaction['id'])); ?>
 				<?php echo $this->Html->link(__('Edit'), array('controller' => 'transactions', 'action' => 'edit', $transaction['id'])); ?>
@@ -111,6 +124,9 @@
 	<tr>
 		<th><?php echo __('Id'); ?></th>
 		<th><?php echo __('Title'); ?></th>
+		<th><?php echo __('Description'); ?></th>
+		<th><?php echo __('Keyword'); ?></th>
+		<th><?php echo __('Expense'); ?></th>
 		<th class="actions"><?php echo __('Actions'); ?></th>
 	</tr>
 	<?php
@@ -119,6 +135,9 @@
 		<tr>
 			<td><?php echo $tag['id']; ?></td>
 			<td><?php echo $tag['title']; ?></td>
+			<td><?php echo $tag['description']; ?></td>
+			<td><?php echo $tag['keyword']; ?></td>
+			<td><?php echo $tag['expense']; ?></td>
 			<td class="actions">
 				<?php echo $this->Html->link(__('View'), array('controller' => 'tags', 'action' => 'view', $tag['id'])); ?>
 				<?php echo $this->Html->link(__('Edit'), array('controller' => 'tags', 'action' => 'edit', $tag['id'])); ?>
