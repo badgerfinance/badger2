@@ -11,6 +11,13 @@ App::uses('AppModel', 'Model');
  */
 class Account extends AppModel {
     public $actsAs = array("Bancha.BanchaRemotable");
+    
+    public $virtualFields = array(
+//     		'currentAmount' => "
+//     			SELECT SUM(t.amount) FROM transactions AS t WHERE \$__cakeID__\$ = t.account_id 
+//     		"
+    		'currentAmount' => 0
+    );
 
 /**
  * Validation rules
@@ -126,5 +133,33 @@ class Account extends AppModel {
 			'insertQuery' => ''
 		)
 	);
+	
+	public function afterFind($results, $primary=false) {
+		foreach ($results as $key => $result) {
+// 			$results[$key]['Account']['currentAmount'] = $this->Transaction->query("
+// 				SELECT SUM(amount) FROM transactions WHERE account_id = '{$this->id}'
+// 			");
+			$temp = $this->Transaction->find('first', array(
+				'fields'	 => 	'SUM(Transaction.amount) AS currentAmount',
+				'conditions' => array(
+					'Transaction.account_id' => $result['Account']['id'],
+					'Transaction.valuta_date <=' => date('Y-m-d')
+				)
+			));
+			
+			$currentAmount = $temp[0]['currentAmount'];
+			if ($currentAmount === null) {
+				$currentAmount = '0.00';
+			}
+			
+			$results[$key]['Account']['currentAmount'] = $currentAmount;
+		}
+		
+		return $results;
+	}
+	
+	public function findAllDelegate() {
+		return $this->find('all');
+	}
 
 }

@@ -24,11 +24,11 @@ class TagsTransactionFixture extends CakeTestFixture {
  *
  * @var array
  */
-	public $records = array(
-		array(
-			'tag_id' => 1,
-			'transaction_id' => 1
-		),
-	);
+// 	public $records = array(
+// 		array(
+// 			'tag_id' => 1,
+// 			'transaction_id' => 1
+// 		),
+// 	);
 
 }

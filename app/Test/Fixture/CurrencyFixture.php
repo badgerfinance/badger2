@@ -25,12 +25,12 @@ class CurrencyFixture extends CakeTestFixture {
  *
  * @var array
  */
-	public $records = array(
-		array(
-			'id' => 1,
-			'long_name' => 'Lorem ipsum dolor sit amet',
-			'symbol' => 'L'
-		),
-	);
+// 	public $records = array(
+// 		array(
+// 			'id' => 1,
+// 			'long_name' => 'Lorem ipsum dolor sit amet',
+// 			'symbol' => 'L'
+// 		),
+// 	);
 
 }

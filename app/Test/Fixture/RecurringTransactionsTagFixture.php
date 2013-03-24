@@ -24,11 +24,11 @@ class RecurringTransactionsTagFixture extends CakeTestFixture {
  *
  * @var array
  */
-	public $records = array(
-		array(
-			'recurring_transaction_id' => 1,
-			'tag_id' => 1
-		),
-	);
+// 	public $records = array(
+// 		array(
+// 			'recurring_transaction_id' => 1,
+// 			'tag_id' => 1
+// 		),
+// 	);
 
 }

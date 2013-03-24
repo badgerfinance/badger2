@@ -71,7 +71,20 @@ class DATABASE_CONFIG {
 		'prefix' => '',
 		'encoding' => 'utf8',
 	);
-        
+	
+	public $test = array(
+		'datasource' => 'Database/Mysql',
+		'persistent' => false,
+//		'host' => 'localhost',
+//                'port' => 8889,
+                'unix_socket' => '/Applications/MAMP/tmp/mysql/mysql.sock',
+		'login' => 'root',
+		'password' => 'root',
+		'database' => 'badger2-test',
+		'prefix' => '',
+		'encoding' => 'utf8',
+	);
+	        
 	/*
         public $test = array(
 		'datasource' => 'Database/Mysql',

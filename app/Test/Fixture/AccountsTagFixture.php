@@ -24,11 +24,11 @@ class AccountsTagFixture extends CakeTestFixture {
  *
  * @var array
  */
-	public $records = array(
-		array(
-			'account_id' => 1,
-			'tag_id' => 1
-		),
-	);
+// 	public $records = array(
+// 		array(
+// 			'account_id' => 1,
+// 			'tag_id' => 1
+// 		),
+// 	);
 
 }

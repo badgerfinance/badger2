@@ -1,0 +1,10 @@
+cakephp_app_path=/badger2/app
+cakephp_core_path=/badger2/lib/Cake
+ciunit_config_file=
+ciunit_path=
+eclipse.preferences.version=1
+phpunit_config_file=
+preload_script=
+test_file_pattern=Test\\.php$
+test_folders=/badger2/app/Test\u0005/badger2/app/Test/Case/Controller\u0005/badger2/app/Test/Case/Controller/Component\u0005/badger2/app/Test/Case/Model\u0005/badger2/app/Test/Case/Model/Behavior\u0005/badger2/app/Test/Case/View\u0005/badger2/app/Test/Case/View/Helper
+testing_framework=PHPUnit
