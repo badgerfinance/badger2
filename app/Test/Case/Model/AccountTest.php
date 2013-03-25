@@ -34,7 +34,13 @@ class AccountTest extends CakeTestCase {
 		$this->Account = ClassRegistry::init('Account');
 	}
 	
-	public function testIt() {
+	public function testCount() {
+		$accountCount = $this->Account->find('count');
+		
+		parent::assertEqual($accountCount, 3);
+	}
+	
+	public function testCurrentAmount() {
 		$accounts = $this->Account->find('all');
 		
 		

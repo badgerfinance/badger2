@@ -16,7 +16,7 @@ class Account extends AppModel {
 //     		'currentAmount' => "
 //     			SELECT SUM(t.amount) FROM transactions AS t WHERE \$__cakeID__\$ = t.account_id 
 //     		"
-    		'currentAmount' => 0
+    		'currentAmount' => '0.00'
     );
 
 /**
@@ -139,9 +139,15 @@ class Account extends AppModel {
 		$sums = array();
 		
 		foreach ($results as $key => $result) {
-			$id = $result['Account']['id'];
-			$ids[] = $id;
-			$sums[$id] = '0.00';
+			if (isset($result['Account'])) {
+				$id = $result['Account']['id'];
+				$ids[] = $id;
+				$sums[$id] = '0.00';
+			}
+		}
+		
+		if (count($ids) == 0) {
+			return $results;
 		}
 		
 		$transactionSums = $this->Transaction->find('all', array(
