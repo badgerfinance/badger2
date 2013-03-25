@@ -8,8 +8,8 @@ Ext.define('Badger2.view.Viewport', {
                 xtype: 'sidebar'
             },
             {
-            	region: 'center',
-            	xtype: 'examplegrids'
+	            	region: 'center',
+	            	xtype: 'mainTabContainer'
             }
         ]
 });

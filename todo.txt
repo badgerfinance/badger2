@@ -1,0 +1,8 @@
+TODO Badger2:
+* Global stores
+* i18n
+* l9n
+* resolve foreign keys (Currency etc.)
+* Fix double header
+* Inline editing (in Transactions)
+* add all columns to AccountOverview

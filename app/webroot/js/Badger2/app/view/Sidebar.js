@@ -7,11 +7,16 @@ Ext.define('Badger2.view.Sidebar', {
 	
 	forceFit: true,
 	
-		title: 'Some Title',
-			
+	resizable: true,
 	
-	items: [{
-	        html: 'Hello, World!'
-
-	}]
+	layout: 'accordion',
+	
+	items: [
+			{
+				xtype: 'accountOverview'
+			},
+			{
+				html: 'Hello, World!'
+			}
+	]
 });

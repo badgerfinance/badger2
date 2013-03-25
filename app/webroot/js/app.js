@@ -22,7 +22,14 @@ function startApp() {
 		         'Bancha.model.RecurringTransactionsTag', 
 		         'Bancha.model.TagsTransaction'
 		],
-		controllers: ['SidebarController'],
+		controllers: ['SidebarController', 'MainAreaController'],
+		
+		stores: [
+//			Ext.create('Ext.data.Store', {
+//				storeId: 'Account',
+//				model: Bancha.getModel('Account')
+//			})
+		],
 		
 		launch: function() {
 	//		this.callParent(arguments);
