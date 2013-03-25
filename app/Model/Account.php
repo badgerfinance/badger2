@@ -135,31 +135,39 @@ class Account extends AppModel {
 	);
 	
 	public function afterFind($results, $primary=false) {
+		$ids = array();
+		$sums = array();
+		
 		foreach ($results as $key => $result) {
-// 			$results[$key]['Account']['currentAmount'] = $this->Transaction->query("
-// 				SELECT SUM(amount) FROM transactions WHERE account_id = '{$this->id}'
-// 			");
-			$temp = $this->Transaction->find('first', array(
-				'fields'	 => 	'SUM(Transaction.amount) AS currentAmount',
-				'conditions' => array(
-					'Transaction.account_id' => $result['Account']['id'],
-					'Transaction.valuta_date <=' => date('Y-m-d')
-				)
-			));
-			
-			$currentAmount = $temp[0]['currentAmount'];
-			if ($currentAmount === null) {
-				$currentAmount = '0.00';
-			}
+			$id = $result['Account']['id'];
+			$ids[] = $id;
+			$sums[$id] = '0.00';
+		}
+		
+		$transactionSums = $this->Transaction->find('all', array(
+			'fields'	 => 	array(
+				'account_id',
+				'SUM(Transaction.amount) AS currentAmount'
+			),
+			'conditions' => array(
+				'Transaction.account_id' => $ids,
+				'Transaction.valuta_date <=' => date('Y-m-d')
+			),
+			'group' => array(
+				'Transaction.account_id'
+			)
+		));
+		
+		foreach($transactionSums as $transactionSum) {
+			$sums[$transactionSum['Transaction']['account_id']] = $transactionSum[0]['currentAmount'];
+		}
+		
+		foreach($results as $key => $result) {
+			$currentAmount = $sums[$result['Account']['id']];
 			
 			$results[$key]['Account']['currentAmount'] = $currentAmount;
 		}
 		
 		return $results;
 	}
-	
-	public function findAllDelegate() {
-		return $this->find('all');
-	}
-
 }
