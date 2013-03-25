@@ -46,5 +46,11 @@ $cakeDescription = __d('cake_dev', 'Badger 2');
 		echo $this->fetch('script');
 	?>
 </head>
-<body></body>
+<body>
+	<?php echo $this->Session->flash(); ?>
+	
+	<?php echo $this->fetch('content'); ?>
+	
+	<?php echo $this->element('sql_dump'); ?>
+</body>
 </html>
