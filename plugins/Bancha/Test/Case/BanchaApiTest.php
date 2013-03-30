@@ -1,11 +1,11 @@
 <?php
 /**
- * Bancha Project : Combining Ext JS and CakePHP (http://banchaproject.org)
- * Copyright 2011-2012 StudioQ OG
+ * Bancha Project : Seamlessly integrates CakePHP with ExtJS and Sencha Touch (http://banchaproject.org)
+ * Copyright 2011-2013 StudioQ OG
  *
  * @package       Bancha
  * @category      tests
- * @copyright     Copyright 2011-2012 StudioQ OG
+ * @copyright     Copyright 2011-2013 StudioQ OG
  * @link          http://banchaproject.org Bancha Project
  * @since         Bancha v 0.9.0
  * @author        Roland Schuetz <mail@rolandschuetz.at>
@@ -21,6 +21,7 @@ App::uses('BanchaApi', 'Bancha.Bancha');
  * @category      tests
  */
 class BanchaApiTest extends CakeTestCase {
+    public $fixtures = array('plugin.bancha.article','plugin.bancha.articles_tag','plugin.bancha.user','plugin.bancha.tag');
 
 	public function testGetRemotableModels() {
 		$api = new BanchaApi();
@@ -103,7 +104,7 @@ class BanchaApiTest extends CakeTestCase {
 		$this->assertArrayHasKey('User', $metadata);
 		$this->assertArrayHasKey('Article', $metadata);
 		$this->assertArrayHasKey('_UID', $metadata);
-		$this->assertArrayHasKey('_CakeDebugLevel', $metadata);
+		$this->assertArrayHasKey('_ServerDebugLevel', $metadata);
 		$this->assertTrue(is_array($metadata['User']));
 		$this->assertTrue(is_array($metadata['Article']));
 		$this->assertTrue(strlen($metadata['_UID']) > 0);
@@ -152,9 +153,3 @@ class BanchaApiTest extends CakeTestCase {
 		$this->assertEquals('getAll', $remotableActions['Article'][0]['name']);
 	}
 }
-
-
-
-
-
-

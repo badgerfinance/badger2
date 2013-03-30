@@ -2,12 +2,12 @@
 /**
  * AllBehaviorsTest file
  *
- * Bancha Project : Combining Ext JS and CakePHP (http://banchaproject.org)
- * Copyright 2011-2012 StudioQ OG
+ * Bancha Project : Seamlessly integrates CakePHP with ExtJS and Sencha Touch (http://banchaproject.org)
+ * Copyright 2011-2013 StudioQ OG
  *
  * @package       Bancha
  * @subpackage    Model.Behavior
- * @copyright     Copyright 2011-2012 StudioQ OG
+ * @copyright     Copyright 2011-2013 StudioQ OG
  * @link          http://banchaproject.org Bancha Project
  * @since         Bancha v 0.9.0
  * @author        Roland Schuetz <mail@rolandschuetz.at>
@@ -314,8 +314,14 @@ class BanchaRemotableBehavior extends ModelBehavior {
 			// and now add support for even another structure
 			// http://book.cakephp.org/2.0/en/models/data-validation.html#one-rule-per-field
 			if(isset($values['rule'])) {
-				$values = array(
-					$values['rule'] => $values);
+				if(is_string($values['rule'])) { // this is the name of a validation rule
+					$values = array(
+						$values['rule'] => $values);
+				} else if(is_array($values['rule']) && is_string($values['rule'][0])) { // this is an array or name plus arguments
+					$values = array(
+						$values['rule'][0] => $values);
+				}
+				// otherwise the rule is malformed
 			}
 
 
@@ -533,6 +539,17 @@ class BanchaRemotableBehavior extends ModelBehavior {
 	 */
 	public function getLastSaveResult(Model $Model) {
 		if(empty($this->result[$Model->alias])) {
+			// there were some validation errors, send those
+			if(!$Model->validates()) {
+				$msg =  "The record doesn't validate. Since Bancha can't send validation errors to the ".
+						"client yet, please handle this in your application stack.";
+				if(Configure::read('debug') > 0) {
+					$msg .= "<br/><br/><pre>Validation Errors:\n".print_r($Model->invalidFields(),true)."</pre>";
+				}
+				throw new BadRequestException($msg);
+			}
+
+			// otherwise send error
 			throw new BanchaException(
 				'There was nothing saved to be returned. Probably this occures because the data '.
 				'you send from ExtJS was malformed. Please use the Bancha.getModel(ModelName) '.
@@ -582,11 +599,12 @@ class BanchaRemotableBehavior extends ModelBehavior {
 			}
 			if(!$valid) {
 				throw new BanchaException(
-					'Could nto find even one model field to save to database. Probably this occurs '.
-					'because you send from your own model or you one save invocation. Please use the '.
+					'You try to save a record, but Bancha is not able to find the data. Bancha could '.
+					'not find even one model field in the send data. Probably this occurs because you '.
+					'saved a record from your own model with a wrong configuration. Please use the '.
 					'Bancha.getModel(ModelName) function to create, load and save model records. If '.
-					'you really have to create your own models, make sure that the JsonWriter "root" (ExtJS) / "rootProperty" '.
-					'(Sencha Touch) is set to "data". <br /><br />'.
+					'you really have to create your own models, make sure that the JsonWriter property '.
+					'"root" (ExtJS) / "rootProperty" (Sencha Touch) is set to "data". <br /><br />'.
 					'Got following data to save: <br />'.print_r($Model->data,true));
 			}
 		} //eo debugging checks

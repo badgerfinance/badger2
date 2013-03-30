@@ -3,7 +3,7 @@ App::uses('AppController', 'Controller');
 /**
  * BanchaDispatcherTest file.
  *
- * Bancha Project : Combining Ext JS and CakePHP (http://banchaproject.org)
+ * Bancha Project : Seamlessly integrates CakePHP with ExtJS and Sencha Touch (http://banchaproject.org)
  * Copyright 2011, Roland Schuetz, Kung Wong, Andreas Kern, Florian Eckerstorfer
  *
  * @package       Bancha
@@ -59,8 +59,8 @@ class BanchaDispatcherTest extends CakeTestCase {
 		$responses = json_decode($dispatcher->dispatch($collection, array('return' => true)));
 
 		$this->assertTrue(isset($responses[0]->result), 'Expected $responses[0]->result to pre present, instead $responses is '.print_r($responses,true));
-		$this->assertEquals('Hello World!', $responses[0]->result->text);
-		$this->assertEquals('foobar', $responses[1]->result->text);
+		$this->assertEquals('Hello World!', $responses[0]->result->data->text);
+		$this->assertEquals('foobar', $responses[1]->result->data->text);
 	}
 
 /**

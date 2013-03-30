@@ -1,14 +1,14 @@
 /*!
  *
- * Bancha Project : Combining Ext JS and CakePHP (http://banchaproject.org)
- * Copyright 2011-2012 StudioQ OG
+ * Bancha Project : Seamlessly integrates CakePHP with ExtJS and Sencha Touch (http://banchaproject.org)
+ * Copyright 2011-2013 StudioQ OG
  *
  * Tests for all ExtJS and Sencha Touch specific helper functions
  *
- * @copyright     Copyright 2011-2012 StudioQ OG
+ * @copyright     Copyright 2011-2013 StudioQ OG
  * @link          http://banchaproject.org Bancha Project
  * @author        Roland Schuetz <mail@rolandschuetz.at>
- * @version       Bancha v 1.2.3
+ * @version       Bancha v 1.3.0
  *
  * For more information go to http://banchaproject.org
  */
@@ -43,7 +43,7 @@ describe("ExtSpecHelpers toThrowExtError matcher", function() {
                 return lastResult().passed();
               },
               toFail: function() {
-    // 
+    // console.info(lastResult());
                 return !lastResult().passed();
               }
         });
@@ -67,7 +67,7 @@ describe("ExtSpecHelpers toThrowExtError matcher", function() {
         var exceptionFn = function() {
             Ext.Error.raise('this is a ext error');
         };
-        //
+        //console.info(match(exceptionFn));
         expect(match(exceptionFn).toThrowExtErrorMsg('this is a ext error')).toPass();
     });
     

@@ -231,7 +231,7 @@ TraceKit.report = (function () {
  *             data += (item.func || '[anonymous]') + "() in " + item.url + ":" + (item.line || '0') + "\n";
  *         }
  *         if (window.console)
- *             
+ *             console.info(data);
  *         else
  *             alert(data);
  *     }

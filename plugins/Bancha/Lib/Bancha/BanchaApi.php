@@ -1,11 +1,11 @@
 <?php
 /**
- * Bancha Project : Combining Ext JS and CakePHP (http://banchaproject.org)
- * Copyright 2011-2012 StudioQ OG
+ * Bancha Project : Seamlessly integrates CakePHP with ExtJS and Sencha Touch (http://banchaproject.org)
+ * Copyright 2011-2013 StudioQ OG
  *
  * @package       Bancha
  * @subpackage    Lib
- * @copyright     Copyright 2011-2012 StudioQ OG
+ * @copyright     Copyright 2011-2013 StudioQ OG
  * @link          http://banchaproject.org Bancha Project
  * @since         Bancha v 0.9.3
  * @author        Florian Eckerstorfer <f.eckerstorfer@gmail.com>
@@ -54,7 +54,15 @@ class BanchaApi {
 					$remotableModels[] = $modelClass;
 				}
 			}
+			// alternatively (for newer cake releases) check if the BehaviorCollection has the Remotable Behavior
+			else if(isset($model->Behaviors->_enabled) && is_array($model->Behaviors->_enabled)) {
+				// check if the behavior is attached
+				if(array_key_exists('Bancha.BanchaRemotable', $model->Behaviors->_enabled)) {
+					$remotableModels[] = $modelClass;
+				}
+			}
 		}
+
 		return $remotableModels;
 	}
 
@@ -113,7 +121,7 @@ class BanchaApi {
 			$metadata[$modelClass] = $model->extractBanchaMetaData($modelClass);
 		}
 		$metadata['_UID'] = str_replace('.', '', uniqid('', true));
-		$metadata['_CakeDebugLevel'] = Configure::read('debug');
+		$metadata['_ServerDebugLevel'] = Configure::read('debug');
 		return $metadata;
 	}
 
@@ -212,13 +220,22 @@ class BanchaApi {
 	protected function loadModel($modelClass) {
 		list($plugin, $modelClass) = pluginSplit($modelClass, true);
 
-		$model = ClassRegistry::init(array(
-			'class' => $plugin . $modelClass, 'alias' => $modelClass, 'id' => null
-		));
-		if (!$model) {
+		// make sure the AppModel and plugin AppModel is available
+		App::uses(substr($plugin,0,strlen($plugin)-1).'AppModel' , $plugin . 'Model');
+		if(strlen($plugin)>0) {
+			App::uses($plugin.'AppModel' , 'Model');
+		}
+
+		// load the model
+		App::uses($modelClass, $plugin . 'Model');
+
+		// if the ClassRegistry can't find the correct model it returns
+		// the AppModel, so explicitly check for the model here
+		if (!class_exists($modelClass)) {
 			throw new MissingModelException(array('class' => $modelClass));
 		}
-		return $model;
+		
+		return ClassRegistry::init($plugin . $modelClass);
 	}
 
 	/**
@@ -227,12 +244,9 @@ class BanchaApi {
 	 * @param  string $controllerClass Name of the controller to load.
 	 * @return void
 	 */
-	protected function loadController($controllerClass) {	
-		if(!file_exists(APP . DS . 'Controller' . DS . $controllerClass . '.php')) {
-			throw new MissingControllerException(array('class' => $controllerClass));
-		}
-		
-		include_once APP . DS . 'Controller' . DS . $controllerClass . '.php';
+	protected function loadController($controllerClass) {
+		App::uses('AppController', 'Controller');
+		App::uses($controllerClass, 'Controller');
 
 		if (!class_exists($controllerClass)) {
 			throw new MissingControllerException(array('class' => $controllerClass));

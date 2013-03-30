@@ -1,11 +1,11 @@
 <?php
 /**
- * Bancha Project : Combining Ext JS and CakePHP (http://banchaproject.org)
- * Copyright 2011-2012 StudioQ OG
+ * Bancha Project : Seamlessly integrates CakePHP with ExtJS and Sencha Touch (http://banchaproject.org)
+ * Copyright 2011-2013 StudioQ OG
  *
  * @package       Bancha
  * @subpackage    Console
- * @copyright     Copyright 2011-2012 StudioQ OG
+ * @copyright     Copyright 2011-2013 StudioQ OG
  * @link          http://banchaproject.org Bancha Project
  * @since         Bancha v 1.0.1
  * @author        Roland Schuetz <mail@rolandschuetz.at>
@@ -13,6 +13,12 @@
 
 App::uses('ExtractTask', 'Console/Command/Task');
 
+/**
+ * This class represents a token for extracting translations from JavaScript.
+ * The class is used by BanchaExtractTask.
+ *
+ * @package       Bancha.Console.Command.Task
+ */
 class Bancha_JavaScriptToken {
 	public static $TYPE_ERROR = false;
 	public static $TYPE_STRING = 1;
@@ -90,6 +96,13 @@ class Bancha_JavaScriptToken {
 
 /**
  * Language string extractor for Bancha.t translations
+ *
+ * It would be very nice here if we could use a real JavaScript tokenizer to collect all translatable strings,
+ * but there doesn't exist any performant and correct working JavaScript tokenizer implementation in PHP. 
+ * Besides that we still would need another implementation to handle PHP files where the might not have cleanly
+ * separated the javascript.
+ *
+ * So this is a quite robust implementation using a text search and partially tokenizing the code.
  *
  * @package       Bancha.Console.Command.Task
  */
@@ -519,13 +532,24 @@ class BanchaExtractTask extends ExtractTask {
 					$line += substr_count($breaks, "\r");
 				}
 
-				$wholeCode = '...'.(isset($occurrences[$position-1]) ? substr($occurrences[$position-1], strlen($occurrences[$position-1]-20)) : ''). $functionName . $originalCode . (isset($occurrences[$position+1]) ? $occurrences[$position+1] : '');
+				// get up to 20 chars before the code
+				//$wholeCode = isset($occurrences[$position-1]) ? $occurrences[$position-1] : '';
+				//$wholeCode = strlen($wholeCode)>20 ? '...'.substr($wholeCode, strlen($wholeCode-20)) : '';
+				// get the function invocation
+				$wholeCode = $functionName . (strlen($originalCode)>60 ? substr($originalCode, 0, 60) : $originalCode);
+				// and some code afterwards if there's not much code yet
+				if(strlen($wholeCode)<60) {
+					$wholeCode .= $functionName;
+					$wholeCode .= isset($occurrences[$position+1]) ? substr($occurrences[$position+1], 0, (60-strlen($wholeCode))) : '';
+				}
+
+
+				// parse code
 				$code = trim($originalCode);
 
 				// expect a opening parenthesis
 				if(substr($code, 0, 1) !== '(') {
-					$this->_markerError($this->_file, $line,
-						__d('cake_console', 'Expected opening braces after %s, instead got "%s"', $functionName, substr($code,0,10)), $wholeCode);
+					// this is probably a check if the function exists in the environment, ignore it
 					continue;
 				}
 				$code = substr($code, 1);
@@ -553,10 +577,6 @@ class BanchaExtractTask extends ExtractTask {
 
 				// error collecting the arguments
 				if(end($arguments)->isError()) {
-					pr($occurrences[$position-1]); 
-					pr($occurrences[$position]); 
-					pr($occurrences[$position+1]); 
-					pr($arguments); exit();
 					$this->_markerError($this->_file, $line,
 						__d('cake_console', 'Expected strings or variables as arguments for %s, instead saw "%s"', $functionName, substr($code,0,20)), $wholeCode);
 					continue;
@@ -577,7 +597,9 @@ class BanchaExtractTask extends ExtractTask {
 				
 				// if there is a variable we can't collect it
 				if($arguments[0]->isVariable()) {
-					$this->out(__d('cake_console', '<warning>'.$functionName.' is called with a variable, we can\'t collect this, the code: '.$functionName.substr($wholeCode,0,100).'</warning>'));
+					$this->out(__d('cake_console', 
+						'<warning>'.$functionName." is called with a variable/statement, we can't collect this.\n".
+						'Error happend near: '.substr($wholeCode,0,100).'</warning>'));
 					continue;
 				}
 				// check against errors
@@ -592,8 +614,7 @@ class BanchaExtractTask extends ExtractTask {
 
 				// check strings if possible %s match given arguments
 				// if($arguments[0])
-				// TOD: $replacements = preg_match_all("%s", $singular, $matches);
-				// TODO
+				// TODO $replacements = preg_match_all("%s", $singular, $matches);
 				
 				// add the translation
 				
@@ -628,7 +649,7 @@ class BanchaExtractTask extends ExtractTask {
  */
 	protected function _markerError($file, $line, $errorMsg, $code) {
 		$this->err(__d('cake_console', "<warning>Invalid marker content in %s:%s</warning>\n%s", $file, $line, $errorMsg), true);
-		$this->err(__d('cake_console', "Error happend near: %s\n\n", substr($code,0,100)), true);
+		$this->err(__d('cake_console', "Error happend near: %s\n\n", $code), true);
 	}
 
 /**

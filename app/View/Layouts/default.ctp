@@ -17,6 +17,7 @@
  */
 
 $cakeDescription = __d('cake_dev', 'Badger 2');
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -31,15 +32,15 @@ $cakeDescription = __d('cake_dev', 'Badger 2');
 
 		echo $this->Html->css('cake.generic');
                 
-                echo $this->Html->css('badger2');
-                
-                echo $this->Html->css('resources/css/ext-all');
-                echo $this->Html->script('ext-all-dev');
-                echo $this->Html->script('/Bancha/js/Bancha-dev');
-                echo $this->Html->script('/bancha-api/models/all');
-                
-                echo $this->Html->script('bancha-scaffold-debug');
-				echo $this->Html->script('app.js');
+        echo $this->Html->css('badger2');
+        
+		echo $this->Html->css('resources/css/ext-all');
+	    echo $this->Html->script('desktop/ext-all-dev');
+	    echo $this->Html->script('/Bancha/js/Bancha');
+	    echo $this->Html->script('/bancha-api/models/all');
+        
+        echo $this->Html->script('bancha-scaffold-debug');
+		echo $this->Html->script('desktop/app.js');
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');

@@ -1,11 +1,11 @@
 <?php
 /**
- * Bancha Project : Combining Ext JS and CakePHP (http://banchaproject.org)
- * Copyright 2011-2012 StudioQ OG
+ * Bancha Project : Seamlessly integrates CakePHP with ExtJS and Sencha Touch (http://banchaproject.org)
+ * Copyright 2011-2013 StudioQ OG
  *
  * @package       Bancha
  * @category      tests
- * @copyright     Copyright 2011-2012 StudioQ OG
+ * @copyright     Copyright 2011-2013 StudioQ OG
  * @link          http://banchaproject.org Bancha Project
  * @since         Bancha v 0.9.0
  * @author        Florian Eckerstorfer <f.eckerstorfer@gmail.com>
@@ -50,9 +50,6 @@ class BanchaRequestCollectionTest extends CakeTestCase {
 		// This should generate 1 CakeRequest object packed in an array.
 		$this->assertEquals(1, count($requests));
 		$this->assertThat($requests[0], $this->isInstanceOf('CakeRequest'));
-
-		// All requests should be POST requests
-		$this->assertTrue($requests[0]->is('post'));
 
 		// action -> controller
 		// controller should be pluralized
@@ -104,10 +101,6 @@ class BanchaRequestCollectionTest extends CakeTestCase {
 		$this->assertThat($requests[0], $this->isInstanceOf('CakeRequest'));
 		$this->assertThat($requests[1], $this->isInstanceOf('CakeRequest'));
 
-		// All requests should be POST requests
-		$this->assertTrue($requests[0]->is('post'));
-		$this->assertTrue($requests[1]->is('post'));
-
 		// action -> controller
 		$this->assertEquals($requests[0]['controller'], 'Tests');
 		$this->assertEquals($requests[1]['controller'], 'Tests');
@@ -137,9 +130,6 @@ class BanchaRequestCollectionTest extends CakeTestCase {
 		// This should generate 1 CakeRequest object packed in an array.
 		$this->assertEquals(1, count($requests));
 		$this->assertThat($requests[0], $this->isInstanceOf('CakeRequest'));
-
-		// All requests should be POST requests
-		$this->assertTrue($requests[0]->is('post'));
 
 		// action -> controller
 		$this->assertEquals($requests[0]['controller'], 'Tests');

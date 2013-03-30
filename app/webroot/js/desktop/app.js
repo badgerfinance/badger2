@@ -7,7 +7,7 @@ Ext.onReady(function() {
 function startApp() {
 	Ext.application({
 		name: 'Badger2',
-		appFolder: '/js/Badger2/app',
+		appFolder: 'js/desktop/app',
 		autoCreateViewport: true,
 		models: [
 		         'Bancha.model.Account', 

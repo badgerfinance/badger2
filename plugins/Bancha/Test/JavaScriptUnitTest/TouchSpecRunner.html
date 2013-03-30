@@ -13,6 +13,10 @@
     if(!window.Ext) {
       alert('Please copy the Sencha Touch 2 library into Bancha/Test/JavaScriptUnitTest/lib/sencha-touch-all-debug.js');
     }
+
+    // this is quite tricky, for Sencha Touch be be ready we need to trigger 
+    // the setup process (e.g. to make Ext.Msg available)
+    Ext.setup({});
   </script>
   <script type="text/javascript" src="../../webroot/js/Bancha.js"></script>
 
@@ -30,6 +34,7 @@
   <script type="text/javascript" src="spec/javascripts/BanchaSpec.js"></script>
   <script type="text/javascript" src="spec/javascripts/Bancha.LocalizerSpec.js"></script>
   <script type="text/javascript" src="spec/javascripts/Bancha.data.ModelSpec.js"></script>
+  <script type="text/javascript" src="spec/javascripts/Bancha.data.writer.JsonWithDateTimeSpec.js"></script>
 
 </head>
 <body>

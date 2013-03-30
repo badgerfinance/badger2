@@ -1,11 +1,11 @@
 <?php
 
 /**
- * Bancha Project : Combining Ext JS and CakePHP (http://banchaproject.org)
- * Copyright 2011-2012 StudioQ OG
+ * Bancha Project : Seamlessly integrates CakePHP with ExtJS and Sencha Touch (http://banchaproject.org)
+ * Copyright 2011-2013 StudioQ OG
  *
  * @package       Bancha.Controller.Component
- * @copyright     Copyright 2011-2012 StudioQ OG
+ * @copyright     Copyright 2011-2013 StudioQ OG
  * @link          http://banchaproject.org Bancha Project
  * @since         Bancha v 1.1.0
  * @author        Roland Schuetz <mail@rolandschuetz.at>
@@ -63,6 +63,29 @@ class BanchaPaginatorComponent extends PaginatorComponent {
  */
 	protected $Controller;
 
+/**
+ * The initialize method fixes a conflict with the RequestHandler.
+ *
+ * The RequestHandler would overwrite the by Bancha set $request->data property
+ * to the whole Ext.Direct json data, instead of the correct request data only.
+ *
+ * So every time the request is made by Bancha we will disable the RequestHandler,
+ * if available.
+ * 
+ * @param  Controller $controller Controller with components to initialize
+ * @return void
+ */
+	public function initialize(Controller $controller) {
+		if(!isset($controller->request->params['isBancha']) || !$controller->request->params['isBancha']) {
+			// this is not a Bancha request, so nothing for us to do here
+			return;
+		}
+
+		// If there is a RequestHandler, deactivate all callbacks
+		if(isset($controller->RequestHandler)) {
+			$controller->Components->disable('RequestHandler');
+		}
+	}
 /**
  * Main execution method. Handles validating of allowed filter constraints.
  *
@@ -174,10 +197,9 @@ class BanchaPaginatorComponent extends PaginatorComponent {
 						$fieldName = $parts[1];
 
 						if(!is_object($this->Controller->{$modelName})) {
-							print_r($this->Controller->{$modelName});
 							throw new BanchaException('The '.$this->Controller->name.'Controller is missing the model '.$modelName.', but has a configuration for this model in BanchaPaginatorComponent::allowedFilters. Please make sure to define the controllers uses property or use the beforeFilter for loading.');
 						}
-						if($this->Controller->{$modelName}->virtualFields && $this->Controller->{$modelName}->virtualFields[$fieldName]) {
+						if($this->Controller->{$modelName}->virtualFields && isset($this->Controller->{$modelName}->virtualFields[$fieldName])) {
 							throw new BanchaException('The BanchaPaginatorComponent::allowedFilters configuration allows filtering on '.$value.', but this is a virtual field cakephp can\'t handle constraints on them.');
 						}
 
@@ -233,7 +255,7 @@ class BanchaPaginatorComponent extends PaginatorComponent {
 						throw new BanchaException('The last ExtJS/Sencha Touch request tried to filter the by '.$field.', which is not allowed according to the '.$this->Controller->name.' BanchaPaginatorComponent::allowedFilters configuration.');
 					} else {
 						// we are not in debug mode where we want to throw an exception, so just ignore this filtering
-						delete($conditions[$field]);
+						unset($conditions[$field]);
 					}
 				}
 			}
@@ -247,8 +269,8 @@ class BanchaPaginatorComponent extends PaginatorComponent {
 				if(Configure::read('debug') == 2) {
 					throw new BanchaException('The last ExtJS/Sencha Touch request tried to filter the by '.$field.', which is not allowed according to the '.$this->Controller->name.' BanchaPaginatorComponent::allowedFilters configuration.');
 				} else {
-					// we are not in debug mode where we want to throw an exception, so jsut ignore this filtering
-					delete($conditions[$field]);
+					// we are not in debug mode where we want to throw an exception, so just ignore this filtering
+					unset($conditions[$field]);
 				}
 			}
 		}

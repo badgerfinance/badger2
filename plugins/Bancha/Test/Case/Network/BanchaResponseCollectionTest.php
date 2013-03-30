@@ -2,10 +2,10 @@
 /**
  * BanchaResponseCollectionTest file.
  *
- * Bancha Project : Combining Ext JS and CakePHP (http://banchaproject.org)
- * Copyright 2011-2012 StudioQ OG
+ * Bancha Project : Seamlessly integrates CakePHP with ExtJS and Sencha Touch (http://banchaproject.org)
+ * Copyright 2011-2013 StudioQ OG
  *
- * @copyright     Copyright 2011-2012 StudioQ OG
+ * @copyright     Copyright 2011-2013 StudioQ OG
  * @link          http://banchaproject.org Bancha Project
  * @since         Bancha v 0.9.0
  * @author        Florian Eckerstorfer <f.eckerstorfer@gmail.com>
@@ -34,10 +34,14 @@ class BanchaResponseCollectionTest extends CakeTestCase {
 	function testGetResponses() {
 		// Content of responses.
 		$response1 = array(
-			'body'	=> array('message' => 'Hello World'),
+			'body'	=> array(
+				'success' => true,
+				'message' => 'Hello World'),
 		);
 		$response2 = array(
-			'body'	=> array('message' => 'Hello Bancha'),
+			'body'	=> array(
+				'success' => true,
+				'message' => 'Hello Bancha'),
 		);
 		$response3 = new Exception('This is an exception'); $exception_line = __LINE__;
 
@@ -62,14 +66,14 @@ class BanchaResponseCollectionTest extends CakeTestCase {
 		$this->assertEquals(1, $actualResponse[0]->tid);
 		$this->assertEquals('foo', $actualResponse[0]->action);
 		$this->assertEquals('bar', $actualResponse[0]->method);
-		$this->assertEquals((object)array('message' => 'Hello World'), $actualResponse[0]->result);
+		$this->assertEquals((object)array('success' => true, 'message' => 'Hello World'), $actualResponse[0]->result);
 
 		// Successfull response
 		$this->assertEquals('rpc', $actualResponse[1]->type);
 		$this->assertEquals(2, $actualResponse[1]->tid);
 		$this->assertEquals('bar', $actualResponse[1]->action);
 		$this->assertEquals('foo', $actualResponse[1]->method);
-		$this->assertEquals((object)array('message' => 'Hello Bancha'), $actualResponse[1]->result);
+		$this->assertEquals((object)array('success' => true, 'message' => 'Hello Bancha'), $actualResponse[1]->result);
 
 		// Exception response
 		$this->assertEquals('exception', $actualResponse[2]->type);
@@ -86,7 +90,9 @@ class BanchaResponseCollectionTest extends CakeTestCase {
 	public function testGetResponses_extUpload() {
 		
 		$response1 = array(
-			'body'	=> array('message' => 'Hello World'),
+			'body'	=> array(
+				'success' => true,
+				'message' => 'Hello World'),
 		);
 		$request = new CakeRequest();
 		$request->addParams(array('controller' => 'foo', 'action' => 'bar', 'extUpload' => true));

@@ -180,4 +180,9 @@ CakeLog::config('error', array(
 	'file' => 'error',
 ));
 
-CakePlugin::load(array('Bancha' => array('routes' => true, 'bootstrap' => true)));
+CakePlugin::load(array(
+'Bancha' => array(
+'routes' => true,
+'bootstrap' => true
+)
+));

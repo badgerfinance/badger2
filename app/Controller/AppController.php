@@ -22,6 +22,7 @@
 
 App::uses('Controller', 'Controller');
 
+
 /** 
  * Application Controller
  *
@@ -33,4 +34,22 @@ App::uses('Controller', 'Controller');
  */
 class AppController extends Controller {
     //public $components = array('Bancha.Bancha');
+	/**
+	 * Use the BanchaPaginatorComponent to also support pagination
+	 * and remote searching for Sencha Touch and ExtJS stores
+	 */
+	public $components = array(
+			'Session',
+			'Paginator' => array('className' => 'Bancha.BanchaPaginator'),
+			'RequestHandler'
+	);
+	
+	public function beforeFilter() {
+		// check for mobile devices
+        if ($this->RequestHandler->isMobile()) {
+            // if device is mobile, change layout to mobile
+            $this->layout = 'mobile';
+        }
+	}
+	
 }
