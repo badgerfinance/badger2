@@ -17,3 +17,12 @@
 @include sencha-msgbox;
 
 // Your custom code goes here...
+
+.accountTitle {
+	position: absolute;
+	left: 0.3em;
+}
+.accountAmount {
+	position: absolute;
+	right: 0.3em;
+}

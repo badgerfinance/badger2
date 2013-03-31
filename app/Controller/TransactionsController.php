@@ -14,7 +14,7 @@ class TransactionsController extends AppController {
  */
 	public function index() {
 		$this->Transaction->recursive = 0;
-// 		$this->Components->load('Paginator')->whitelist[] = 'conditions';
+		$this->Components->load('Paginator')->whitelist[] = 'conditions';
 		$transactions = $this->paginate();
 		$this->set('transactions', $transactions);
 

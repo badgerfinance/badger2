@@ -14,7 +14,7 @@ class AccountsController extends AppController {
  */
 	public function index() {
 		$this->Account->recursive = 0;
-// 		$this->Components->load('Paginator')->whitelist[] = 'conditions';
+		$this->Components->load('Paginator')->whitelist[] = 'conditions';
 		$accounts = $this->paginate();
 		$this->set('accounts', $accounts);
 
