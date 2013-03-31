@@ -70,6 +70,19 @@ $cakeDescription = __d('cake_dev', 'Badger 2');
     </style>
     <!-- The line below must be kept intact for Sencha Command to build your application -->
     <script id="microloader" type="text/javascript" src="js/mobile/touch/microloader/development.js"></script>
+    	<?php
+		echo $this->Html->meta('icon');
+
+		echo $this->Html->css('cake.generic');
+                
+	    echo $this->Html->script('/Bancha/js/Bancha-dev');
+// 	    echo $this->Html->script('/bancha-api');
+	    echo $this->Html->script('/bancha-api/models/all');
+        
+		echo $this->fetch('meta');
+		echo $this->fetch('css');
+		echo $this->fetch('script');
+	?>
 </head>
 <body>
     <div id="appLoadingIndicator">

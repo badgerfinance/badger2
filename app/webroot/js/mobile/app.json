@@ -40,7 +40,7 @@
      */
     "js": [
         {
-            "path": "js/mobile/touch/sencha-touch.js",
+            "path": "js/mobile/touch/sencha-touch-all-debug.js",
             "x-bootstrap": true
         },
         {

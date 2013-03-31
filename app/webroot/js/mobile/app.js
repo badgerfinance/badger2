@@ -15,8 +15,11 @@
 
 //<debug>
 Ext.Loader.setPath({
-    'Ext': 'js/mobile/touch/src',
+//    'Ext': 'js/mobile/touch/src',
     'Badger2': 'js/mobile/app'
+//    'Bancha': 'Bancha/js/Bancha-dev.js',
+//    'Bancha.data.writer.JsonWithDateTime' : 'Bancha/js/Bancha-dev.js',
+//    'Bancha.model': 'bancha-api/models'
 });
 //</debug>
 
@@ -27,11 +30,22 @@ Ext.application({
         'Ext.MessageBox'
     ],
 
-    views: [
-        'Main',
-        'AccountOverview'
+//    views: [
+//        'Main',
+//        'Accounts'
+//    ],
+//    
+//    models: [
+//    	'Bancha.model.Account'
+//    ],
+//    
+    controllers: [
+    	'AccountsController'
     ],
-
+	stores: [
+		'AccountsStore'
+	],
+    
     icon: {
         '57': 'resources/icons/Icon.png',
         '72': 'resources/icons/Icon~ipad.png',
@@ -51,11 +65,13 @@ Ext.application({
     },
 
     launch: function() {
-        // Destroy the #appLoadingIndicator element
-        Ext.fly('appLoadingIndicator').destroy();
-
-        // Initialize the main view
-        Ext.Viewport.add(Ext.create('Badger2.view.Main'));
+    	Bancha.onModelReady('Account', function() {
+	        // Destroy the #appLoadingIndicator element
+	        Ext.fly('appLoadingIndicator').destroy();
+	
+	        // Initialize the main view
+	        Ext.Viewport.add(Ext.create('Badger2.view.Main'));
+    	});
     },
 
     onUpdated: function() {
