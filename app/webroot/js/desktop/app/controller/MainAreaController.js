@@ -1,4 +1,4 @@
-Ext.define('Badger2.controller.MainAreaController', {
+Ext.define('badger.desktop.controller.MainAreaController', {
 	extend: 'Ext.app.Controller',
 
 	models: [],
@@ -7,7 +7,7 @@ Ext.define('Badger2.controller.MainAreaController', {
 	refs: [],
 	
 	openTransactionList: function(accountId) {
-		this.getView('MainTabContainer').addTab(Ext.create('Badger2.view.TransactionGrid'));
+		this.getView('MainTabContainer').addTab(Ext.create('badger.desktop.view.TransactionGrid'));
 	}
 	
 });

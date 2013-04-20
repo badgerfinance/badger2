@@ -1,9 +1,11 @@
-Ext.define('Badger2.view.Sidebar', {
+Ext.define('badger.desktop.view.Sidebar', {
 	extend: 'Ext.panel.Panel',
 	
 	alias: 'widget.sidebar',
 	
-	store: [],
+    requires:[
+        'Ext.layout.container.Accordion'
+    ],
 	
 	forceFit: true,
 	
@@ -11,12 +13,15 @@ Ext.define('Badger2.view.Sidebar', {
 	
 	layout: 'accordion',
 	
-	items: [
-			{
-				xtype: 'accountOverview'
-			},
+	items : [
+// TODO:			=> Error while rending the grid into this panel
+//			{ 
+//				xtype: 'accountOverview'
+//			},
 			{
 				html: 'Hello, World!'
 			}
-	]
+		]
+	
+
 });

@@ -21,5 +21,5 @@ if (!Configure::read('debug')):
 endif;
 App::uses('Debugger', 'Utility');
 
-echo $this->Html->scriptBlock('startApp();');
+// echo $this->Html->scriptBlock('startApp();');
 ?>
