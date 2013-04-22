@@ -3,25 +3,27 @@ Ext.define('badger.desktop.view.Sidebar', {
 	
 	alias: 'widget.sidebar',
 	
-    requires:[
-        'Ext.layout.container.Accordion'
-    ],
+	requires: [
+		'Ext.layout.container.Accordion'
+	],
 	
 	forceFit: true,
 	
 	resizable: true,
 	
+	width: 300,
+	
 	layout: 'accordion',
 	
 	items : [
-// TODO:			=> Error while rending the grid into this panel
-//			{ 
-//				xtype: 'accountOverview'
-//			},
-			{
-				html: 'Hello, World!'
-			}
-		]
+		// TODO: => Error while rending the grid into this panel
+		// Temporary fix: width (see above)
+		{ 
+			xtype: 'accountOverview'
+		},
+		{
+			html: 'Bye, World!'
+		}
+	]
 	
-
 });

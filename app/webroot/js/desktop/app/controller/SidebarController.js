@@ -10,19 +10,11 @@ Ext.define('badger.desktop.controller.SidebarController', {
 	},
 	
 	models: [],
-	stores: [],
+	stores: ['AccountStore'],
 	views: ['Sidebar', 'AccountOverview'],
-	refs: [
-		{
-			ref: 'mainTabContainer',
-			selector: 'mainTabContainer'
-		}
-	],
 	
 	openTransactionList: function(self, td, cellIndex, record, tr, rowIndex, e, eOpts) {
-		console.debug(record);
-		this.getMainTabContainer().add(Ext.create('badger.desktop.view.TransactionGrid', {
-			accountId : record.get('id')
-		}));
+		var ctrl = this.application.getController('MainAreaController');
+		ctrl.openTransactionList(record.get('id'), record.get('title'));
 	}
 });

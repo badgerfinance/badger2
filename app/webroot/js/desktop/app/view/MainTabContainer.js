@@ -6,6 +6,7 @@ Ext.define('badger.desktop.view.MainTabContainer', {
 	items: [
 		{
 			xtype: 'transactionGrid',
+			accountTitle: 'AccountA',
 			accountId: 3
 		}
 	]

@@ -1,3 +1,5 @@
+Ext.syncRequire('badger.desktop.column.TransactionColumns');
+
 Ext.define('badger.desktop.view.TransactionGrid', {
 	extend: 'Ext.grid.Panel',
 	
@@ -7,43 +9,16 @@ Ext.define('badger.desktop.view.TransactionGrid', {
 	
 	closable: true,
 	
-	store: Ext.create('Ext.data.Store', {
-	    model: Bancha.getModel('Transaction'),
-	    remoteFilter: true,
-	    remoteSort: true,
-	    sortable: true,
-	    sorters: [
-		    {
-		    		property: 'valuta_date',
-		    		direction: 'DESC'
-		    }
-	    ]
-	}),
-	
+	columns: badger.desktop.column.TransactionColumns,
 	
 	initComponent: function() {
-
-//        this.store = 'ForumThreads';
-
-		this.columns =  [
-			{ text: 'Valuta Date', dataIndex: 'valuta_date', xtype: 'datecolumn' }, 
-			{ text: 'Title', dataIndex: 'title' },
-			{ text: 'Amount', dataIndex: 'amount', xtype: 'numbercolumn' },
-			{ text: 'Tags', dataIndex: 'tags' },
-			{ text: 'Transaction Partner', dataIndex: 'transaction_partner', hidden: true },
-			{ text: 'Description', dataIndex: 'description' },
-			{ text: 'Parser Text', dataIndex: 'parser_text', hidden: true },
-			{ text: 'Transferal Source', dataIndex: 'transferal_source_id', hidden: true },
-			{ text: 'Transferal Target', dataIndex: 'transferal_target_id', hidden: true }
-		];
+		// we want a different store for each TransactionGrid because we show different contents
+		this.store = Ext.create('badger.desktop.store.TransactionStore');
+		this.store.filter('account_id', this.accountId);
+		if (this.accountTitle) {
+			this.title = this.accountTitle + ' ' + this.title;
+		}
 		
-		this.store.load();
 		this.callParent(arguments);
 	}
-//	,
-//	
-//	afterRender: function() {
-//		this.store.filter('account_id', this.accountId);
-//		this.store.load();
-//	}
 });

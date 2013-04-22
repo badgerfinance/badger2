@@ -14,11 +14,11 @@
 //@require @packageOverrides
 
 Ext.Loader.setPath({
-//    'Ext': 'js/desktop/ext/src',
-    'badger.desktop': 'js/desktop/app'
-//    'Bancha': 'Bancha/js/Bancha-dev.js',
-//    'Bancha.data.writer.JsonWithDateTime' : 'Bancha/js/Bancha-dev.js',
-//    'Bancha.model': 'bancha-api/models'
+//	'Ext': 'js/desktop/ext/src',
+	'badger.desktop': 'js/desktop/app'
+//	'Bancha': 'Bancha/js/Bancha-dev.js',
+//	'Bancha.data.writer.JsonWithDateTime' : 'Bancha/js/Bancha-dev.js',
+//	'Bancha.model': 'bancha-api/models'
 });
 
 Ext.Loader.setConfig({ enabled: true });
@@ -28,30 +28,30 @@ Ext.Loader.setConfig({ enabled: true });
 //});
 
 Ext.application({
-    name: 'badger.desktop',
+	name: 'badger.desktop',
 	appFolder: 'js/desktop/app',
 	
-// 	=> defined in controllers
-//    views: [
-//        'AccountOverview',
-//        'Viewport',
-//        'MainTabContainer',
-//        'Sidebar',
-//        'TransactionGrid'
-//    ],
+//	=> defined in controllers
+//	views: [
+//		'AccountOverview',
+//		'Viewport',
+//		'MainTabContainer',
+//		'Sidebar',
+//		'TransactionGrid'
+//	],
 
-    controllers: [
-        'SidebarController', 
-        'MainAreaController'
-    ],
-    
-    launch: function() {
-    	Bancha.onModelReady('Account', function() {
-//    		console.debug("Bancha.onModelReady");
-    		// Initialize the main view
-//	        Ext.Viewport.add(Ext.create('badger.desktop.view.Main'));
-    	});
-    },
-
-    autoCreateViewport: true
+	controllers: [
+		'SidebarController', 
+		'MainAreaController'
+	],
+	
+//	launch: function() {
+//		Bancha.onModelReady('Account', function() {
+////			console.debug("Bancha.onModelReady");
+//			// Initialize the main view
+////			Ext.Viewport.add(Ext.create('badger.desktop.view.Main'));
+//		});
+//	},
+	
+	autoCreateViewport: true
 });
