@@ -19,7 +19,8 @@
 
 $cakeDescription = __d('cake_dev', 'Badger 2');
 ?>
-<!DOCTYPE html>
+
+<!DOCTYPE HTML>
 <html>
 <head>
 	<?php echo $this->Html->charset(); ?>
@@ -27,31 +28,32 @@ $cakeDescription = __d('cake_dev', 'Badger 2');
 		<?php echo $cakeDescription ?>:
 		<?php echo $title_for_layout; ?>
 	</title>
-	<?php
+		<?php
 		echo $this->Html->meta('icon');
-
 		echo $this->Html->css('cake.generic');
-                
-        echo $this->Html->css('badger2');
-        
-		echo $this->Html->css('resources/css/ext-all');
-	    echo $this->Html->script('desktop/ext-all-dev');
-	    echo $this->Html->script('/Bancha/js/Bancha');
-	    echo $this->Html->script('/bancha-api/models/all');
-        
-        echo $this->Html->script('bancha-scaffold-debug');
-		echo $this->Html->script('desktop/app.js');
+		?>
+		
+    <!-- <x-compile> -->
+        <!-- <x-bootstrap> -->
+            <link rel="stylesheet" href="js/desktop/bootstrap.css">
+            <script src="js/desktop/ext/ext-all-dev.js"></script>
+            <script src="js/desktop/bootstrap.js"></script>
+        <!-- </x-bootstrap> -->
+        <script src="js/desktop/app/app.js"></script>
+    <!-- </x-compile> -->
+    
+    	<?php
+		echo $this->Html->script('/Bancha/js/Bancha-dev');
+		// 	    echo $this->Html->script('/bancha-api');
+		echo $this->Html->script('/bancha-api/models/all');
 
-		echo $this->fetch('meta');
-		echo $this->fetch('css');
-		echo $this->fetch('script');
-	?>
+		?>
 </head>
 <body>
-	<?php echo $this->Session->flash(); ?>
+	<!--<?php echo $this->Session->flash(); ?>
 	
 	<?php echo $this->fetch('content'); ?>
 	
-	<?php echo $this->element('sql_dump'); ?>
+	<?php echo $this->element('sql_dump'); ?> -->
 </body>
 </html>

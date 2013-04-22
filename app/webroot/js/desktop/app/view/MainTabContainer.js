@@ -1,4 +1,4 @@
-Ext.define('Badger2.view.MainTabContainer', {
+Ext.define('badger.desktop.view.MainTabContainer', {
 	extend: 'Ext.tab.Panel',
 	
 	alias: 'widget.mainTabContainer',

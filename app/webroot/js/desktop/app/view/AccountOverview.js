@@ -1,6 +1,6 @@
-Ext.define('Badger2.view.AccountOverview', {
-	extend: 'Ext.grid.Panel',
-	
+Ext.define('badger.desktop.view.AccountOverview', {
+    extend: 'Ext.grid.Panel',
+
 	alias: 'widget.accountOverview',
 	
 	title: 'Account Overview',
@@ -21,16 +21,26 @@ Ext.define('Badger2.view.AccountOverview', {
 		    }
 	    ]
 	}),
+//	
+////	store: Ext.data.StoreManager.lookup('Account'),
+//	
 	
-//	store: Ext.data.StoreManager.lookup('Account'),
-	
-	columns: [
-		{ text: 'Title', dataIndex: 'title', minWidth: 150 },
-		{ text: 'Current Amount', dataIndex: 'currentAmount', minWidth: 150 },
-		{ text: 'Currency', dataIndex: 'currency_id', minWidth: 15, hidden: true }
-	],
-	
-	afterRender: function() {
+	initComponent: function() {
+
+//        this.store = 'ForumThreads';
+
+		this.columns = [
+			{ text: 'Title', dataIndex: 'title', minWidth: 150 },
+			{ text: 'Current Amount', dataIndex: 'currentAmount', minWidth: 150 },
+			{ text: 'Currency', dataIndex: 'currency_id', minWidth: 15, hidden: true }
+		];
+		
 		this.store.load();
+		this.callParent(arguments);
 	}
+//	,
+//	
+//	afterRender: function() {
+//		this.store.load();
+//	}
 });
