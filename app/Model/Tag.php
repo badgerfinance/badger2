@@ -8,13 +8,20 @@ App::uses('AppModel', 'Model');
  * @property Transaction $Transaction
  */
 class Tag extends AppModel {
-    public $actsAs = array('Bancha.BanchaRemotable');
-
-/**
- * Validation rules
- *
- * @var array
- */
+	public $actsAs = array(
+		'Bancha.BanchaRemotable' => array(
+			'className' => 'CustomizedBanchaRemotable'
+		),
+		'BanchaRemotable' => array(
+			'className' => 'CustomizedBanchaRemotable'
+		)
+	);
+	
+	/**
+	 * Validation rules
+	 *
+	 * @var array
+	 */
 	public $validate = array(
 		'title' => array(
 			'notempty' => array(
@@ -27,14 +34,14 @@ class Tag extends AppModel {
 			),
 		),
 	);
-
+	
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
-/**
- * hasAndBelongsToMany associations
- *
- * @var array
- */
+	
+	/**
+	 * hasAndBelongsToMany associations
+	 *
+	 * @var array
+	 */
 	public $hasAndBelongsToMany = array(
 		'Account' => array(
 			'className' => 'Account',
@@ -49,7 +56,8 @@ class Tag extends AppModel {
 			'offset' => '',
 			'finderQuery' => '',
 			'deleteQuery' => '',
-			'insertQuery' => ''
+			'insertQuery' => '',
+			'with' => 'AccountsTag'
 		),
 		'RecurringTransaction' => array(
 			'className' => 'RecurringTransaction',
@@ -64,7 +72,8 @@ class Tag extends AppModel {
 			'offset' => '',
 			'finderQuery' => '',
 			'deleteQuery' => '',
-			'insertQuery' => ''
+			'insertQuery' => '',
+			'with' => 'RecurringTransactionsTag'
 		),
 		'Transaction' => array(
 			'className' => 'Transaction',
@@ -79,7 +88,8 @@ class Tag extends AppModel {
 			'offset' => '',
 			'finderQuery' => '',
 			'deleteQuery' => '',
-			'insertQuery' => ''
+			'insertQuery' => '',
+			'with' => 'TagsTransaction'
 		),
 		'Parent' => array(
 			'className' => 'Tag',
@@ -94,7 +104,8 @@ class Tag extends AppModel {
 			'offset' => '',
 			'finderQuery' => '',
 			'deleteQuery' => '',
-			'insertQuery' => ''
+			'insertQuery' => '',
+			'with' => 'ChildTagsParentTag'
 		),
 		'Child' => array(
 			'className' => 'Tag',
@@ -109,7 +120,8 @@ class Tag extends AppModel {
 			'offset' => '',
 			'finderQuery' => '',
 			'deleteQuery' => '',
-			'insertQuery' => ''
+			'insertQuery' => '',
+			'with' => 'ChildTagsParentTag'
 		)
 	);
 

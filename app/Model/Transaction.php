@@ -10,13 +10,24 @@ App::uses('AppModel', 'Model');
  * @property Tag $Tag
  */
 class Transaction extends AppModel {
-    public $actsAs = array("Bancha.BanchaRemotable");
-
-/**
- * Validation rules
- *
- * @var array
- */
+	public $actsAs = array(
+		'Bancha.BanchaRemotable' => array(
+			'className' => 'CustomizedBanchaRemotable'
+		),
+		'BanchaRemotable' => array(
+			'className' => 'CustomizedBanchaRemotable'
+		)
+	);
+		
+	public $virtualFields = array(
+		'counter_transaction_id' => '0'
+	);
+	
+	/**
+	 * Validation rules
+	 *
+	 * @var array
+	 */
 	public $validate = array(
 		'title' => array(
 			'notempty' => array(
@@ -39,14 +50,14 @@ class Transaction extends AppModel {
 			),
 		),
 	);
-
+	
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
-/**
- * belongsTo associations
- *
- * @var array
- */
+	
+	/**
+	 * belongsTo associations
+	 *
+	 * @var array
+	 */
 	public $belongsTo = array(
 		'Account' => array(
 			'className' => 'Account',
@@ -77,12 +88,12 @@ class Transaction extends AppModel {
 			'order' => ''
 		)
 	);
-
-/**
- * hasAndBelongsToMany associations
- *
- * @var array
- */
+	
+	/**
+	 * hasAndBelongsToMany associations
+	 *
+	 * @var array
+	 */
 	public $hasAndBelongsToMany = array(
 		'Tag' => array(
 			'className' => 'Tag',
@@ -97,8 +108,31 @@ class Transaction extends AppModel {
 			'offset' => '',
 			'finderQuery' => '',
 			'deleteQuery' => '',
-			'insertQuery' => ''
+			'insertQuery' => '',
+			'with' => 'TagsTransaction'
 		)
 	);
-
+	
+	public function afterFind($results, $primary=false) {
+		foreach ($results as $key => $result) {
+			$otherId = null;
+			
+			if (isset($result['Transaction']) && isset($result['Transaction']['id'])) {
+				$transaction = $result['Transaction'];
+				if (isset($transaction['transferal_source_id']) && isset($transaction['transferal_target_id'])) {
+					if ($transaction['transferal_source_id'] !== $transaction['id']) {
+						$otherId = $transaction['transferal_source_id'];
+					} else if ($transaction['transferal_target_id'] !== $transaction['id']) {
+						$otherId = $transaction['transferal_target_id'];
+					}
+				}
+				
+				if ($otherId !== null) {
+					$results[$key]['Transaction']['counter_transaction_id'] = $otherId;
+				}
+			}
+		}
+		
+		return $results;
+	}
 }

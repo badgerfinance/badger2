@@ -10,20 +10,27 @@ App::uses('AppModel', 'Model');
  * @property Tag $Tag
  */
 class Account extends AppModel {
-    public $actsAs = array("Bancha.BanchaRemotable");
-    
-    public $virtualFields = array(
-//     		'currentAmount' => "
-//     			SELECT SUM(t.amount) FROM transactions AS t WHERE \$__cakeID__\$ = t.account_id 
-//     		"
-    		'currentAmount' => '0.00'
-    );
-
-/**
- * Validation rules
- *
- * @var array
- */
+	public $actsAs = array(
+		'BanchaRemotable' => array(
+			'className' => 'CustomizedBanchaRemotable'
+		),
+		'Bancha.BanchaRemotable' => array(
+			'className' => 'CustomizedBanchaRemotable'
+		)
+	);
+	
+	public $virtualFields = array(
+//			'currentAmount' => "
+//				SELECT SUM(t.amount) FROM transactions AS t WHERE \$__cakeID__\$ = t.account_id 
+//			"
+		'currentAmount' => '0.00'
+	);
+	
+	/**
+	 * Validation rules
+	 *
+	 * @var array
+	 */
 	public $validate = array(
 		'title' => array(
 			'notempty' => array(
@@ -46,14 +53,14 @@ class Account extends AppModel {
 			),
 		),
 	);
-
+	
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
-/**
- * belongsTo associations
- *
- * @var array
- */
+	
+	/**
+	 * belongsTo associations
+	 *
+	 * @var array
+	 */
 	public $belongsTo = array(
 		'Currency' => array(
 			'className' => 'Currency',
@@ -62,12 +69,12 @@ class Account extends AppModel {
 			'order' => ''
 		)
 	);
-
-/**
- * hasMany associations
- *
- * @var array
- */
+	
+	/**
+	 * hasMany associations
+	 *
+	 * @var array
+	 */
 	public $hasMany = array(
 		'AccountProperty' => array(
 			'className' => 'AccountProperty',
@@ -109,13 +116,13 @@ class Account extends AppModel {
 			'counterQuery' => ''
 		)
 	);
-
-
-/**
- * hasAndBelongsToMany associations
- *
- * @var array
- */
+	
+	
+	/**
+	 * hasAndBelongsToMany associations
+	 *
+	 * @var array
+	 */
 	public $hasAndBelongsToMany = array(
 		'Tag' => array(
 			'className' => 'Tag',
@@ -130,7 +137,8 @@ class Account extends AppModel {
 			'offset' => '',
 			'finderQuery' => '',
 			'deleteQuery' => '',
-			'insertQuery' => ''
+			'insertQuery' => '',
+			'with' => 'AccountsTag'
 		)
 	);
 	
@@ -139,7 +147,7 @@ class Account extends AppModel {
 		$sums = array();
 		
 		foreach ($results as $key => $result) {
-			if (isset($result['Account'])) {
+			if (isset($result['Account']) && isset($result['Account']['id'])) {
 				$id = $result['Account']['id'];
 				$ids[] = $id;
 				$sums[$id] = '0.00';

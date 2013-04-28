@@ -8,13 +8,20 @@ App::uses('AppModel', 'Model');
  * @property Tag $Tag
  */
 class RecurringTransaction extends AppModel {
-    public $actsAs = array("Bancha.BanchaRemotable");
-
-/**
- * Validation rules
- *
- * @var array
- */
+	public $actsAs = array(
+		'Bancha.BanchaRemotable' => array(
+			'className' => 'CustomizedBanchaRemotable'
+		),
+		'BanchaRemotable' => array(
+			'className' => 'CustomizedBanchaRemotable'
+		)
+	);
+	
+	/**
+	 * Validation rules
+	 *
+	 * @var array
+	 */
 	public $validate = array(
 		'title' => array(
 			'notempty' => array(
@@ -67,14 +74,14 @@ class RecurringTransaction extends AppModel {
 			),
 		),
 	);
-
+	
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
-/**
- * belongsTo associations
- *
- * @var array
- */
+	
+	/**
+	 * belongsTo associations
+	 *
+	 * @var array
+	 */
 	public $belongsTo = array(
 		'Account' => array(
 			'className' => 'Account',
@@ -84,12 +91,12 @@ class RecurringTransaction extends AppModel {
 			'order' => ''
 		)
 	);
-
-/**
- * hasMany associations
- *
- * @var array
- */
+	
+	/**
+	 * hasMany associations
+	 *
+	 * @var array
+	 */
 	public $hasMany = array(
 		'Transaction' => array(
 			'className' => 'Transaction',
@@ -105,13 +112,13 @@ class RecurringTransaction extends AppModel {
 			'counterQuery' => ''
 		)
 	);
-
-
-/**
- * hasAndBelongsToMany associations
- *
- * @var array
- */
+	
+	
+	/**
+	 * hasAndBelongsToMany associations
+	 *
+	 * @var array
+	 */
 	public $hasAndBelongsToMany = array(
 		'Tag' => array(
 			'className' => 'Tag',
@@ -126,7 +133,8 @@ class RecurringTransaction extends AppModel {
 			'offset' => '',
 			'finderQuery' => '',
 			'deleteQuery' => '',
-			'insertQuery' => ''
+			'insertQuery' => '',
+			'with' => 'RecurringTransactionsTag'
 		)
 	);
 

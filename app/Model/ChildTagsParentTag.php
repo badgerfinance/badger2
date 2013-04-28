@@ -7,14 +7,20 @@ App::uses('AppModel', 'Model');
  * @property Tag $Parent
  */
 class ChildTagsParentTag extends AppModel {
-    public $actsAs = array("Bancha.BanchaRemotable");
-
-
-/**
- * belongsTo associations
- *
- * @var array
- */
+	public $actsAs = array(
+		'Bancha.BanchaRemotable' => array(
+			'className' => 'CustomizedBanchaRemotable'
+		),
+		'BanchaRemotable' => array(
+			'className' => 'CustomizedBanchaRemotable'
+		)
+	);
+	
+	/**
+	 * belongsTo associations
+	 *
+	 * @var array
+	 */
 	public $belongsTo = array(
 		'Parent' => array(
 			'className' => 'Tag',

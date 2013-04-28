@@ -6,13 +6,20 @@ App::uses('AppModel', 'Model');
  * @property Account $Account
  */
 class AccountProperty extends AppModel {
-    public $actsAs = array("Bancha.BanchaRemotable");
-
-/**
- * Validation rules
- *
- * @var array
- */
+	public $actsAs = array(
+		'Bancha.BanchaRemotable' => array(
+			'className' => 'CustomizedBanchaRemotable'
+		),
+		'BanchaRemotable' => array(
+			'className' => 'CustomizedBanchaRemotable'
+		)
+	);
+	
+	/**
+	 * Validation rules
+	 *
+	 * @var array
+	 */
 	public $validate = array(
 		'account_id' => array(
 			'numeric' => array(
@@ -35,14 +42,14 @@ class AccountProperty extends AppModel {
 			),
 		),
 	);
-
+	
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
-/**
- * belongsTo associations
- *
- * @var array
- */
+	
+	/**
+	 * belongsTo associations
+	 *
+	 * @var array
+	 */
 	public $belongsTo = array(
 		'Account' => array(
 			'className' => 'Account',

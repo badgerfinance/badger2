@@ -7,13 +7,20 @@ App::uses('AppModel', 'Model');
  * @property Transaction $Transaction
  */
 class TagsTransaction extends AppModel {
-    public $actsAs = array("Bancha.BanchaRemotable");
-
-/**
- * Validation rules
- *
- * @var array
- */
+	public $actsAs = array(
+		'Bancha.BanchaRemotable' => array(
+			'className' => 'CustomizedBanchaRemotable'
+		),
+		'BanchaRemotable' => array(
+			'className' => 'CustomizedBanchaRemotable'
+		)
+	);
+	
+	/**
+	 * Validation rules
+	 *
+	 * @var array
+	 */
 	public $validate = array(
 		'tag_id' => array(
 			'numeric' => array(
@@ -36,14 +43,14 @@ class TagsTransaction extends AppModel {
 			),
 		),
 	);
-
+	
 	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
-/**
- * belongsTo associations
- *
- * @var array
- */
+	
+	/**
+	 * belongsTo associations
+	 *
+	 * @var array
+	 */
 	public $belongsTo = array(
 		'Tag' => array(
 			'className' => 'Tag',

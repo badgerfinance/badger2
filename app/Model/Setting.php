@@ -5,13 +5,20 @@ App::uses('AppModel', 'Model');
  *
  */
 class Setting extends AppModel {
-    public $actsAs = array("Bancha.BanchaRemotable");
-
-/**
- * Validation rules
- *
- * @var array
- */
+	public $actsAs = array(
+		'Bancha.BanchaRemotable' => array(
+			'className' => 'CustomizedBanchaRemotable'
+		),
+		'BanchaRemotable' => array(
+			'className' => 'CustomizedBanchaRemotable'
+		)
+	);
+	
+	/**
+	 * Validation rules
+	 *
+	 * @var array
+	 */
 	public $validate = array(
 		'level' => array(
 			'notempty' => array(

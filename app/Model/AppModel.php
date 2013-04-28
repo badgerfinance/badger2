@@ -22,6 +22,7 @@
  */
 
 App::uses('Model', 'Model');
+App::uses('CustomizedBanchaRemotableBehavior', 'Model/Behavior');
 
 /**
  * Application model for Cake.

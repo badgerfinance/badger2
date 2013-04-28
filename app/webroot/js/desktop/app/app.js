@@ -21,7 +21,10 @@ Ext.Loader.setPath({
 //	'Bancha.model': 'bancha-api/models'
 });
 
-Ext.Loader.setConfig({ enabled: true });
+Ext.Loader.setConfig({ 
+	enabled: true,
+	disableCaching: false
+});
 
 //Ext.onReady(function() {
 //	Bancha.init();

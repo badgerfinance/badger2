@@ -32,23 +32,22 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
-    //public $components = array('Bancha.Bancha');
 	/**
 	 * Use the BanchaPaginatorComponent to also support pagination
 	 * and remote searching for Sencha Touch and ExtJS stores
 	 */
 	public $components = array(
 			'Session',
-			'Paginator' => array('className' => 'Bancha.BanchaPaginator'),
+			'Paginator' => array('className' => 'CustomizedBanchaPaginator'),
 			'RequestHandler'
 	);
 	
 	public function beforeFilter() {
 		// check for mobile devices
-        if ($this->RequestHandler->isMobile()) {
-            // if device is mobile, change layout to mobile
-            $this->layout = 'mobile';
-        }
+		if ($this->RequestHandler->isMobile()) {
+			// if device is mobile, change layout to mobile
+			$this->layout = 'mobile';
+		}
 	}
 	
 }
