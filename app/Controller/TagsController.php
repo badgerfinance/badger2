@@ -6,13 +6,14 @@ App::uses('AppController', 'Controller');
  * @property Tag $Tag
  */
 class TagsController extends AppController {
-
-/**
- * index method
- *
- * @return void
- */
+	/**
+	 * index method
+	 *
+	 * @return void
+	 */
 	public function index() {
+		$this->Paginator->setAllowedFilters(array('title'));
+		
 		$this->Tag->recursive = 0;
 		$tags = $this->paginate();
 		$this->set('tags', $tags);

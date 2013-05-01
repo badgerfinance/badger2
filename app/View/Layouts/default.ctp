@@ -30,7 +30,7 @@ $cakeDescription = __d('cake_dev', 'Badger 2');
 	</title>
 		<?php
 		echo $this->Html->meta('icon');
-		echo $this->Html->css('cake.generic');
+// 		echo $this->Html->css('cake.generic');
 		?>
 		
     <!-- <x-compile> -->

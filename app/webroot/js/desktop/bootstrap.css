@@ -4,3 +4,4 @@
  * support development time inspection of css output.
  */
 @import 'packages/ext-theme-classic/build/resources/ext-theme-classic-all.css';
+@import 'ext/src/ux/css/BoxSelect.css'

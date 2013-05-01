@@ -346,7 +346,10 @@ class BanchaRequestTransformer {
 			$filters = $this->data['data'][0]['filter'];
 
 			foreach ($filters as $filter) {
-				$conditions[$this->getModel() . '.' . $filter['property']] = $filter['value'];
+///FIXME TODO Added checks to avoid warning
+				if (isset($filter['property']) && isset($filter['value'])) {
+					$conditions[$this->getModel() . '.' . $filter['property']] = $filter['value'];
+				}
 			}
 		}
 

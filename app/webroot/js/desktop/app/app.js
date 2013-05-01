@@ -15,7 +15,9 @@
 
 Ext.Loader.setPath({
 //	'Ext': 'js/desktop/ext/src',
-	'badger.desktop': 'js/desktop/app'
+	'badger.desktop': 'js/desktop/app',
+	'Ext.ux.form.field.BoxSelect': 'js/desktop/ext/src/ux/form/field/BoxSelect.js',
+	'Ext.ux.form.NumericField': 'js/desktop/ext/src/ux/form/NumericField.js'
 //	'Bancha': 'Bancha/js/Bancha-dev.js',
 //	'Bancha.data.writer.JsonWithDateTime' : 'Bancha/js/Bancha-dev.js',
 //	'Bancha.model': 'bancha-api/models'
